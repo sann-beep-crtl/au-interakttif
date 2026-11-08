@@ -1,1 +1,609 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartphone AU - Kimmy, Erine, Ribka</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .phone-container {
+            width: 100%;
+            max-width: 390px;
+            height: 100%;
+            max-height: 800px;
+            background-color: #0f172a;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        @media (min-width: 391px) {
+            .phone-container {
+                border-radius: 40px;
+                height: 85vh;
+                border: 12px solid #333;
+            }
+        }
+        
+        .status-bar {
+            height: 30px;
+            background: rgba(0,0,0,0.2);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 12px;
+            z-index: 100;
+        }
 
+        /* Lockscreen */
+        #lockscreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e1b4b, #312e81, #4c1d95);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 50;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .lock-time {
+            font-size: 54px;
+            font-weight: 300;
+            margin-top: 20px;
+        }
+        .lock-date {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        .pin-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .pin-dots {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .dot {
+            width: 14px;
+            height: 14px;
+            border: 2px solid white;
+            border-radius: 50%;
+            background: transparent;
+            transition: 0.2s;
+        }
+        .dot.active {
+            background: white;
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 65px);
+            gap: 12px;
+        }
+        .key {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            transition: 0.2s;
+        }
+        .key:active {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .error-msg {
+            color: #fca5a5;
+            font-size: 13px;
+            height: 20px;
+            margin-top: 10px;
+        }
+
+        /* Home Screen */
+        #homescreen {
+            display: none;
+            flex: 1;
+            background: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000&auto=format&fit=crop') no-repeat center center/cover;
+            padding: 30px 20px;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .app-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            gap: 6px;
+        }
+        .app-icon img {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            object-fit: cover;
+        }
+        .app-icon span {
+            color: white;
+            font-size: 12px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+            font-weight: 500;
+        }
+
+        /* App Window */
+        .app-window {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #efeae2;
+            display: none;
+            flex-direction: column;
+            z-index: 40;
+        }
+        .app-header {
+            background-color: #005c4b;
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .app-header img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .app-header .info h3 {
+            font-size: 15px;
+        }
+        .app-header .info p {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+        .app-content {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .chat-list-item {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 8px;
+        }
+        .chat-list-item img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .chat-list-info h4 {
+            font-size: 14px;
+            color: #111;
+        }
+        .chat-list-info p {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .bubble {
+            max-width: 75%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.4;
+            position: relative;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+        .bubble.incoming {
+            background-color: white;
+            align-self: flex-start;
+            border-top-left-radius: 0;
+            color: #111;
+        }
+        .bubble.outgoing {
+            background-color: #d9fdd3;
+            align-self: flex-end;
+            border-top-right-radius: 0;
+            color: #111;
+        }
+        .time {
+            font-size: 10px;
+            color: #999;
+            text-align: right;
+            margin-top: 4px;
+        }
+        .chat-footer {
+            padding: 12px;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            border-top: 1px solid #ddd;
+        }
+        .choice-btn {
+            background-color: white;
+            border: 1px solid #005c4b;
+            color: #005c4b;
+            padding: 10px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: left;
+        }
+        .choice-btn:hover {
+            background-color: #005c4b;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        <div class="status-bar">
+            <span id="current-time">21:00</span>
+            <span>📶 🔋 100%</span>
+        </div>
+
+        <!-- LOCKSCREEN -->
+        <div id="lockscreen">
+            <div>
+                <div class="lock-time" id="lock-clock">21:00</div>
+                <div class="lock-date">Minggu, 8 November</div>
+            </div>
+            <div class="pin-section">
+                <p style="margin-bottom: 15px; font-size: 14px;">🔒 Masukkan PIN (Hint: 1012)</p>
+                <div class="pin-dots">
+                    <div class="dot" id="dot-0"></div>
+                    <div class="dot" id="dot-1"></div>
+                    <div class="dot" id="dot-2"></div>
+                    <div class="dot" id="dot-3"></div>
+                </div>
+                <div class="keypad">
+                    <button class="key" onclick="pressKey('1')">1</button>
+                    <button class="key" onclick="pressKey('2')">2</button>
+                    <button class="key" onclick="pressKey('3')">3</button>
+                    <button class="key" onclick="pressKey('4')">4</button>
+                    <button class="key" onclick="pressKey('5')">5</button>
+                    <button class="key" onclick="pressKey('6')">6</button>
+                    <button class="key" onclick="pressKey('7')">7</button>
+                    <button class="key" onclick="pressKey('8')">8</button>
+                    <button class="key" onclick="pressKey('9')">9</button>
+                    <button class="key" style="visibility: hidden;"></button>
+                    <button class="key" onclick="pressKey('0')">0</button>
+                    <button class="key" onclick="clearPin()">⌫</button>
+                </div>
+                <div class="error-msg" id="error-msg"></div>
+            </div>
+            <p style="font-size: 12px; opacity: 0.6;">Geser / Masukkan PIN untuk membuka</p>
+        </div>
+
+        <!-- HOMESCREEN -->
+        <div id="homescreen">
+            <div class="home-grid">
+                <div class="app-icon" onclick="openApp('chat-app')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+                    <span>Chat AU</span>
+                </div>
+                <div class="app-icon" onclick="openApp('gallery-app')">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=200&auto=format&fit=crop" alt="Gallery">
+                    <span>Galeri</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHAT APP -->
+        <div id="chat-app" class="app-window">
+            <div class="app-header">
+                <button class="back-btn" onclick="closeApp()">←</button>
+                <div class="info">
+                    <h3>WhatsApp AU</h3>
+                    <p>Pilih chat room</p>
+                </div>
+            </div>
+            <div class="app-content" id="chat-menu-view">
+                <div class="chat-list-item" onclick="openChat('kimmy')">
+                    <img src="https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d159a4732107e.jpg" alt="Kimmy">
+                    <div class="chat-list-info">
+                        <h4>Kimmy 🧸</h4>
+                        <p>Besok jadi kan pulang sekolah...</p>
+                    </div>
+                </div>
+                <div class="chat-list-item" onclick="openChat('erine')">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Erine">
+                    <div class="chat-list-info">
+                        <h4>Erine 🔥</h4>
+                        <p>P. Besok tungguin aku di parkiran...</p>
+                    </div>
+                </div>
+                <div class="chat-list-item" onclick="openChat('ribka')">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop" alt="Ribka">
+                    <div class="chat-list-info">
+                        <h4>Ribka 💫</h4>
+                        <p>Kamu di mana? Katanya mau nemenin...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="chat-room-view" style="display: none; flex-direction: column; height: 100%;">
+                <div class="app-header" style="background: #005c4b;">
+                    <button class="back-btn" onclick="backToChatList()">←</button>
+                    <img id="room-avatar" src="" alt="Avatar">
+                    <div class="info">
+                        <h3 id="room-name">Nama</h3>
+                        <p>online</p>
+                    </div>
+                </div>
+                <div class="app-content" id="room-body" style="background: #efeae2; flex: 1;"></div>
+                <div class="chat-footer" id="room-footer"></div>
+            </div>
+        </div>
+
+        <!-- GALLERY APP -->
+        <div id="gallery-app" class="app-window">
+            <div class="app-header" style="background: #e11d48;">
+                <button class="back-btn" onclick="closeApp()">←</button>
+                <div class="info">
+                    <h3>Galeri Rahasia</h3>
+                    <p>Kumpulan foto rahasia</p>
+                </div>
+            </div>
+            <div class="app-content" style="background: #111; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; align-content: start;">
+                <img src="https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d159a4732107e.jpg" style="width:100%; height:140px; object-fit:cover; border-radius:8px;" alt="Foto 1">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" style="width:100%; height:140px; object-fit:cover; border-radius:8px;" alt="Foto 2">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        setInterval(() => {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('current-time').innerText = timeStr;
+            document.getElementById('lock-clock').innerText = timeStr;
+        }, 1000);
+
+        const correctPin = "1012";
+        let enteredPin = "";
+
+        function pressKey(num) {
+            if (enteredPin.length < 4) {
+                enteredPin += num;
+                updateDots();
+                if (enteredPin.length === 4) {
+                    checkPin();
+                }
+            }
+        }
+
+        function clearPin() {
+            enteredPin = "";
+            updateDots();
+            document.getElementById('error-msg').innerText = "";
+        }
+
+        function updateDots() {
+            for (let i = 0; i < 4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                dot.classList.toggle('active', i < enteredPin.length);
+            }
+        }
+
+        function checkPin() {
+            if (enteredPin === correctPin) {
+                const lockscreen = document.getElementById('lockscreen');
+                lockscreen.style.transition = "opacity 0.4s ease";
+                lockscreen.style.opacity = "0";
+                setTimeout(() => {
+                    lockscreen.style.display = "none";
+                    document.getElementById('homescreen').style.display = "flex";
+                }, 400);
+            } else {
+                document.getElementById('error-msg').innerText = "PIN Salah! (Coba: 1012)";
+                setTimeout(clearPin, 1000);
+            }
+        }
+
+        function openApp(appId) {
+            document.getElementById(appId).style.display = "flex";
+        }
+        function closeApp() {
+            document.querySelectorAll('.app-window').forEach(win => win.style.display = "none");
+            backToChatList();
+        }
+
+        const chatData = {
+            kimmy: {
+                name: "Kimmy 🧸",
+                avatar: "https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d159a4732107e.jpg",
+                startScene: 'kimmy_1'
+            },
+            erine: {
+                name: "Erine 🔥",
+                avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
+                startScene: 'erine_1'
+            },
+            ribka: {
+                name: "Ribka 💫",
+                avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop",
+                startScene: 'ribka_1'
+            }
+        };
+
+        const stories = {
+            kimmy_1: {
+                messages: [
+                    { sender: 'incoming', text: "Hai sayang! Besok jadi kan pulang sekolah bareng? Aku bawain jajanan kesukaan kamu loh. ❤️", time: "19.30" }
+                ],
+                choices: [
+                    { text: "Balas: 'Jadi dong! Ga sabar ketemu kamu Kim.'", next: 'kimmy_2' },
+                    { text: "Balas: 'Maaf banget Kim, besok aku kayaknya ada urusan mendadak...'", next: 'kimmy_busy' }
+                ]
+            },
+            kimmy_2: {
+                messages: [
+                    { sender: 'outgoing', text: "Jadi dong! Ga sabar ketemu kamu Kim.", time: "19.31" },
+                    { sender: 'incoming', text: "Yey! Oke deh, aku tunggu di depan gerbang ya besok! 😊", time: "19.32" }
+                ],
+                choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
+            },
+            kimmy_busy: {
+                messages: [
+                    { sender: 'outgoing', text: "Maaf banget Kim, besok aku kayaknya ada urusan mendadak...", time: "19.31" },
+                    { sender: 'incoming', text: "Oh... begitu ya. Yaudah nggak apa-apa, lain kali aja ya :(", time: "19.33" }
+                ],
+                choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
+            },
+            erine_1: {
+                messages: [
+                    { sender: 'incoming', text: "P. Besok kelar les, tungguin aku di parkiran belakang. Jangan ke mana-mana.", time: "19.40" }
+                ],
+                choices: [
+                    { text: "Balas: 'Siap Rin, aku tungguin di sana.'", next: 'erine_2' },
+                    { text: "Balas: 'Duh Rin, besok aku mau bareng Kimmy...' (Ketahuan selingkuh!)", next: 'erine_angry' }
+                ]
+            },
+            erine_2: {
+                messages: [
+                    { sender: 'outgoing', text: "Siap Rin, aku tungguin di sana.", time: "19.41" },
+                    { sender: 'incoming', text: "Bagus. Jangan telat, atau lu tau akibatnya.", time: "19.42" }
+                ],
+                choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
+            },
+            erine_angry: {
+                messages: [
+                    { sender: 'outgoing', text: "Duh Rin, besok aku mau bareng Kimmy...", time: "19.41" },
+                    { sender: 'incoming', text: "Oh? Lu sengaja mainin gue?! Lu lebih milih dia daripada gue?! Anjir lah.", time: "19.43" }
+                ],
+                choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
+            },
+            ribka_1: {
+                messages: [
+                    { sender: 'incoming', text: "Kamu beneran sayang nggak sih sama aku? Kok akhir-akhir ini sering ngilang pas di chat?", time: "20.10" }
+                ],
+                choices: [
+                    { text: "Balas: 'Sayang banget kok Ribka, cuma lagi sibuk tugas.'", next: 'ribka_2' }
+                ]
+            },
+            ribka_2: {
+                messages: [
+                    { sender: 'outgoing', text: "Sayang banget kok Ribka, cuma lagi sibuk tugas.", time: "20.11" },
+                    { sender: 'incoming', text: "Hati-hati ya kalau bohong. Aku tuh curiga kamu deket sama yang lain...", time: "20.12" }
+                ],
+                choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
+            }
+        };
+
+        let currentActiveChat = null;
+
+        function openChat(characterKey) {
+            currentActiveChat = characterKey;
+            document.getElementById('chat-menu-view').style.display = "none";
+            document.getElementById('chat-room-view').style.display = "flex";
+            
+            const char = chatData[characterKey];
+            document.getElementById('room-name').innerText = char.name;
+            document.getElementById('room-avatar').src = char.avatar;
+            
+            loadScene(char.startScene);
+        }
+
+        function backToChatList() {
+            document.getElementById('chat-room-view').style.display = "none";
+            document.getElementById('chat-menu-view').style.display = "block";
+            document.getElementById('room-body').innerHTML = '';
+            document.getElementById('room-footer').innerHTML = '';
+        }
+
+        function loadScene(sceneKey) {
+            if (sceneKey === 'menu') {
+                backToChatList();
+                return;
+            }
+
+            const storiesData = stories[sceneKey];
+            const roomBody = document.getElementById('room-body');
+            const roomFooter = document.getElementById('room-footer');
+
+            storiesData.messages.forEach((msg, index) => {
+                setTimeout(() => {
+                    const bubble = document.createElement('div');
+                    bubble.classList.add('bubble', msg.sender);
+                    bubble.innerHTML = `${msg.text}<div class="time">${msg.time}</div>`;
+                    roomBody.appendChild(bubble);
+                    roomBody.scrollTop = roomBody.scrollHeight;
+                }, index * 500);
+            });
+
+            roomFooter.innerHTML = '';
+            setTimeout(() => {
+                storiesData.choices.forEach(choice => {
+                    const btn = document.createElement('button');
+                    btn.classList.add('choice-btn');
+                    btn.innerText = choice.text;
+                    btn.onclick = () => loadScene(choice.next);
+                    roomFooter.appendChild(btn);
+                });
+            }, storiesData.messages.length * 500);
+        }
+    </script>
+</body>
+</html>
