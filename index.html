@@ -61,12 +61,18 @@
         .island-sensor { width: 9px; height: 9px; background-color: #050505; border-radius: 50%; }
 
         /* Status Bar iOS */
-    .status-bar {
-    height: 48px;
-    color: white;
-    display: none; /* <--- Hapus baris ini atau ubah */
+   .status {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
     justify-content: space-between;
-    ...
+    padding: 0 20px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 10;
 }
         .status-right { display: flex; align-items: center; gap: 6px; font-size: 12px; }
 
