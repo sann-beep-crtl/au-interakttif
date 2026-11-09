@@ -19,7 +19,6 @@
             height: 100vh;
             overflow: hidden;
         }
-        /* Bingkai HP ala iPhone 14 Pro Max */
         .phone-container {
             width: 100%;
             max-width: 410px;
@@ -74,14 +73,9 @@
             z-index: 150;
             text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
-        .status-right {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-        }
+        .status-right { display: flex; align-items: center; gap: 6px; font-size: 12px; }
 
-        /* Lockscreen (Tetesan Air Hujan) */
+        /* Lockscreen */
         #lockscreen {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -100,7 +94,6 @@
         .lock-time-box { margin-top: 10px; }
         .lock-time { font-size: 76px; font-weight: 300; letter-spacing: -2px; text-shadow: 0 4px 15px rgba(0,0,0,0.7); }
         .lock-date { font-size: 16px; font-weight: 500; opacity: 0.95; text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
-        
         .lock-prompt {
             font-size: 13px;
             opacity: 0.8;
@@ -108,11 +101,9 @@
             padding: 8px 16px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
-            animation: pulse 2s infinite;
         }
-        @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
 
-        /* Keypad PIN Masuk */
+        /* Keypad PIN Overlay */
         .pin-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -159,12 +150,7 @@
             justify-content: space-between;
             position: relative;
         }
-        .widgets-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            margin-bottom: 10px;
-        }
+        .widgets-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 10px; }
         .widget {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(20px);
@@ -174,32 +160,11 @@
             font-size: 13px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        .home-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px 10px;
-            align-content: start;
-        }
-        .app-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            gap: 5px;
-        }
-        .app-icon img {
-            width: 58px; height: 58px;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            object-fit: cover;
-        }
-        .app-icon span {
-            color: white;
-            font-size: 11px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
-            font-weight: 500;
-        }
-        /* Dock Bawah */
+        .home-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 10px; align-content: start; }
+        .app-icon { display: flex; flex-direction: column; align-items: center; cursor: pointer; gap: 5px; }
+        .app-icon img { width: 58px; height: 58px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); object-fit: cover; }
+        .app-icon span { color: white; font-size: 11px; text-shadow: 0 1px 3px rgba(0,0,0,0.9); font-weight: 500; }
+        
         .dock {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(25px);
@@ -212,7 +177,7 @@
         }
         .dock .app-icon img { width: 54px; height: 54px; }
 
-        /* App Window (WhatsApp / Galeri) */
+        /* App Window */
         .app-window {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -260,7 +225,7 @@
         .chat-list-info h4 { font-size: 14px; color: #e9edef; }
         .chat-list-info p { font-size: 12px; color: #8696a0; margin-top: 2px; }
 
-        /* Chat Bubbles WhatsApp Dark Mode */
+        /* WhatsApp Dark Mode Bubbles */
         .bubble {
             max-width: 80%;
             padding: 8px 12px;
@@ -274,7 +239,6 @@
         .bubble.outgoing { background-color: #005c4b; color: #e9edef; align-self: flex-end; border-top-right-radius: 0; }
         .time { font-size: 10px; color: #8696a0; float: right; margin-left: 8px; margin-top: 4px; display: flex; align-items: center; gap: 2px; }
 
-        /* Chat Footer & Keyboard Mockup */
         .chat-footer { background-color: #202c33; padding: 8px 12px; display: flex; flex-direction: column; gap: 8px; }
         .fake-input { background-color: #2a3942; color: #8696a0; padding: 10px 14px; border-radius: 20px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
         .action-choices { display: flex; flex-direction: column; gap: 6px; }
@@ -287,7 +251,6 @@
             cursor: pointer;
             font-size: 13px;
             font-weight: 500;
-            text-align: left;
         }
         .choice-btn:hover { background-color: #005c4b; color: white; }
 
@@ -314,7 +277,7 @@
             </div>
         </div>
 
-        <!-- LOCKSCREEN (Tetesan Hujan) -->
+        <!-- LOCKSCREEN -->
         <div id="lockscreen" onclick="showPinScreen()">
             <div class="lock-time-box">
                 <div class="lock-time" id="lock-clock">21:43</div>
@@ -381,7 +344,7 @@
                 <div class="app-icon"><img src="https://images.unsplash.com/photo-1611262588024-d12430b98920?q=80&w=200&auto=format&fit=crop" alt=""><span>Instagram</span></div>
             </div>
 
-            <!-- DOCK BAWAH -->
+            <!-- DOCK -->
             <div class="dock">
                 <div class="app-icon" onclick="openApp('chat-app')"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"></div>
                 <div class="app-icon"><img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=200&auto=format&fit=crop" alt=""></div>
@@ -394,7 +357,7 @@
         <div id="chat-app" class="app-window">
             <div class="app-header">
                 <button class="back-btn" onclick="closeApp()">‹ Chats</button>
-                <div class="info" style="display: flex; align-items: center; gap: 8px;">
+                <div class="info">
                     <h3>WhatsApp</h3>
                 </div>
             </div>
@@ -599,7 +562,7 @@
                     bubble.innerHTML = `${msg.text.replace(/\n/g, '<br>')}<span class="time">${msg.time}${checkmark}</span>`;
                     roomBody.appendChild(bubble);
                     roomBody.scrollTop = roomBody.scrollHeight;
-                }, index * 400);
+                }, index * 300);
             });
 
             roomFooter.innerHTML = '';
@@ -611,7 +574,7 @@
                     btn.onclick = () => loadScene(choice.next);
                     roomFooter.appendChild(btn);
                 });
-            }, storiesData.messages.length * 400);
+            }, storiesData.messages.length * 300);
         }
     </script>
 </body>
