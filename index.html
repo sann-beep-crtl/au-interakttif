@@ -82,11 +82,11 @@
     gap: 6px;
     font-size: 15px;
   }
-  .battery{
-    width: 28px;
-    height: 13px;
-    border: 1.2px solid rgba(255,255,255,0.5);
-    border-radius: 4px;
+ .battery{
+    width: 24px;
+    height: 11px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 3px;
     position: relative;
     display: flex;
     align-items: center;
@@ -95,19 +95,19 @@
   .battery::after{
     content: "";
     position: absolute;
-    right: -3.5px;
+    right: -3px;
     top: 50%;
     transform: translateY(-50%);
-    width: 2px;
+    width: 1.5px;
     height: 4px;
-    background: rgba(255,255,255,0.5);
-    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0 1px 1px 0;
   }
   .battery-fill{
-    width: 85%;
+    width: 75%;
     height: 100%;
     background: #fff;
-    border-radius: 2px;
+    border-radius: 1px;
   }
         .status-right { display: flex; align-items: center; gap: 6px; font-size: 12px; }
 
