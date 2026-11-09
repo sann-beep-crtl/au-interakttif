@@ -40,7 +40,7 @@
             }
         }
         
-        /* Dynamic Island ala iPhone Pro */
+        /* Dynamic Island */
         .dynamic-island-container {
             position: absolute;
             top: 12px;
@@ -56,18 +56,8 @@
             align-items: center;
             padding: 0 10px;
         }
-        .island-cam {
-            width: 10px;
-            height: 10px;
-            background-color: #1a1a1a;
-            border-radius: 50%;
-        }
-        .island-sensor {
-            width: 8px;
-            height: 8px;
-            background-color: #0d1117;
-            border-radius: 50%;
-        }
+        .island-cam { width: 10px; height: 10px; background-color: #1a1a1a; border-radius: 50%; }
+        .island-sensor { width: 8px; height: 8px; background-color: #0d1117; border-radius: 50%; }
 
         /* Status Bar */
         .status-bar {
@@ -83,13 +73,10 @@
             text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* Lockscreen dengan Wallpaper Tetesan Air Hujan */
+        /* Lockscreen */
         #lockscreen {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=1000&auto=format&fit=crop') no-repeat center center/cover;
             color: white;
             display: flex;
@@ -100,73 +87,16 @@
             padding: 55px 20px 40px 20px;
             text-align: center;
         }
-        .lock-time {
-            font-size: 72px;
-            font-weight: 300;
-            margin-top: 15px;
-            letter-spacing: -2px;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.7);
-        }
-        .lock-date {
-            font-size: 16px;
-            font-weight: 500;
-            opacity: 0.9;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.7);
-        }
-        .pin-section {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .pin-dots {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        .dot {
-            width: 14px;
-            height: 14px;
-            border: 2px solid white;
-            border-radius: 50%;
-            background: transparent;
-            transition: 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
-        .dot.active {
-            background: white;
-        }
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 65px);
-            gap: 12px;
-        }
-        .key {
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            color: white;
-            font-size: 20px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            transition: 0.2s;
-        }
-        .key:active {
-            background: rgba(255, 255, 255, 0.4);
-        }
-        .error-msg {
-            color: #fca5a5;
-            font-size: 13px;
-            height: 20px;
-            margin-top: 10px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-        }
+        .lock-time { font-size: 72px; font-weight: 300; margin-top: 15px; letter-spacing: -2px; text-shadow: 0 4px 15px rgba(0,0,0,0.7); }
+        .lock-date { font-size: 16px; font-weight: 500; opacity: 0.9; text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
+        .pin-section { width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .pin-dots { display: flex; gap: 15px; margin-bottom: 25px; }
+        .dot { width: 14px; height: 14px; border: 2px solid white; border-radius: 50%; background: transparent; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+        .dot.active { background: white; }
+        .keypad { display: grid; grid-template-columns: repeat(3, 65px); gap: 12px; }
+        .key { width: 65px; height: 65px; border-radius: 50%; background: rgba(255, 255, 255, 0.15); border: none; color: white; font-size: 20px; font-weight: 500; cursor: pointer; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        .key:active { background: rgba(255, 255, 255, 0.4); }
+        .error-msg { color: #fca5a5; font-size: 13px; height: 20px; margin-top: 10px; }
 
         /* Home Screen */
         #homescreen {
@@ -178,181 +108,184 @@
             justify-content: space-between;
             position: relative;
         }
-        .home-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-top: 10px;
-        }
-        .app-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            gap: 6px;
-        }
-        .app-icon img {
-            width: 62px;
-            height: 62px;
-            border-radius: 16px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-            object-fit: cover;
-        }
-        .app-icon span {
-            color: white;
-            font-size: 12px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
-            font-weight: 500;
-        }
+        .home-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 10px; }
+        .app-icon { display: flex; flex-direction: column; align-items: center; cursor: pointer; gap: 6px; }
+        .app-icon img { width: 62px; height: 62px; border-radius: 16px; box-shadow: 0 6px 15px rgba(0,0,0,0.4); object-fit: cover; }
+        .app-icon span { color: white; font-size: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.9); font-weight: 500; }
 
         /* App Window */
         .app-window {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #efeae2;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0b141a; /* WhatsApp Dark Mode BG */
             display: none;
             flex-direction: column;
             z-index: 40;
             padding-top: 45px;
         }
         .app-header {
-            background-color: #005c4b;
-            color: white;
-            padding: 12px 15px;
+            background-color: #202c33;
+            color: #e9edef;
+            padding: 10px 15px;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            z-index: 10;
         }
-        .back-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .app-header img {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .app-header .info h3 {
-            font-size: 15px;
-        }
-        .app-header .info p {
-            font-size: 11px;
-            opacity: 0.8;
-        }
+        .back-btn { background: none; border: none; color: #e9edef; font-size: 18px; cursor: pointer; }
+        .app-header img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+        .app-header .info h3 { font-size: 15px; color: #e9edef; }
+        .app-header .info p { font-size: 11px; color: #8696a0; }
+        
         .app-content {
             flex: 1;
             padding: 15px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+            background-color: #0b141a;
         }
         
         .chat-list-item {
-            background: white;
+            background: #111b21;
             padding: 12px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             gap: 12px;
             cursor: pointer;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             margin-bottom: 8px;
         }
-        .chat-list-item img {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .chat-list-info h4 {
-            font-size: 14px;
-            color: #111;
-        }
-        .chat-list-info p {
-            font-size: 12px;
-            color: #666;
-            margin-top: 2px;
-        }
+        .chat-list-item img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+        .chat-list-info h4 { font-size: 14px; color: #e9edef; }
+        .chat-list-info p { font-size: 12px; color: #8696a0; margin-top: 2px; }
 
+        /* WhatsApp Dark Chat Bubbles */
         .bubble {
-            max-width: 75%;
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 14px;
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13.5px;
             line-height: 1.4;
             position: relative;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            word-wrap: break-word;
         }
         .bubble.incoming {
-            background-color: white;
+            background-color: #202c33;
+            color: #e9edef;
             align-self: flex-start;
-            border-top-left-radius: 2px;
-            color: #111;
+            border-top-left-radius: 0;
         }
         .bubble.outgoing {
-            background-color: #d9fdd3;
+            background-color: #005c4b; /* WA Dark Green */
+            color: #e9edef;
             align-self: flex-end;
-            border-top-right-radius: 2px;
-            color: #111;
+            border-top-right-radius: 0;
         }
         .time {
             font-size: 10px;
-            color: #999;
-            text-align: right;
+            color: #8696a0;
+            float: right;
+            margin-left: 8px;
             margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
         }
+
+        /* Chat Footer & Mock Keyboard */
         .chat-footer {
-            padding: 12px;
-            background-color: #f0f2f5;
+            background-color: #202c33;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .fake-input {
+            flex: 1;
+            background-color: #2a3942;
+            color: #8696a0;
+            padding: 10px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .action-choices {
             display: flex;
             flex-direction: column;
             gap: 6px;
-            border-top: 1px solid #ddd;
         }
         .choice-btn {
-            background-color: white;
+            background-color: #111b21;
             border: 1px solid #005c4b;
-            color: #005c4b;
+            color: #25d366;
             padding: 10px 14px;
-            border-radius: 20px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 13px;
             font-weight: 500;
             text-align: left;
+            transition: 0.2s;
         }
         .choice-btn:hover {
             background-color: #005c4b;
             color: white;
+        }
+
+        /* iOS Keyboard Mockup Preview */
+        .ios-keyboard {
+            background-color: #182229;
+            padding: 8px 4px 20px 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            border-top: 1px solid #222d34;
+        }
+        .kb-row { display: flex; justify-content: center; gap: 5px; }
+        .kb-key {
+            background-color: #374248;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 0;
+            width: 30px;
+            height: 38px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.4);
         }
     </style>
 </head>
 <body>
 
     <div class="phone-container">
-        <!-- Dynamic Island iPhone 14 Pro Max -->
+        <!-- Dynamic Island -->
         <div class="dynamic-island-container">
             <div class="island-sensor"></div>
             <div class="island-cam"></div>
         </div>
 
         <div class="status-bar">
-            <span id="current-time" style="padding-left: 5px;">21:40</span>
-            <span style="padding-right: 5px;">5G 🔋</span>
+            <span id="current-time" style="padding-left: 5px;">21:43</span>
+            <span style="padding-right: 5px;">5G 🔋 38%</span>
         </div>
 
         <!-- LOCKSCREEN -->
         <div id="lockscreen">
             <div>
-                <div class="lock-time" id="lock-clock">21:40</div>
+                <div class="lock-time" id="lock-clock">21:43</div>
                 <div class="lock-date">Sabtu, 8 November</div>
             </div>
             <div class="pin-section">
@@ -410,7 +343,7 @@
                     <img src="https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d159a4732107e.jpg" alt="Kimmy">
                     <div class="chat-list-info">
                         <h4>Kimmy 🧸</h4>
-                        <p>Besok jadi kan pulang sekolah...</p>
+                        <p>aku keujanannn...</p>
                     </div>
                 </div>
                 <div class="chat-list-item" onclick="openChat('erine')">
@@ -429,8 +362,9 @@
                 </div>
             </div>
 
+            <!-- CHAT ROOM -->
             <div id="chat-room-view" style="display: none; flex-direction: column; height: 100%;">
-                <div class="app-header" style="background: #005c4b;">
+                <div class="app-header">
                     <button class="back-btn" onclick="backToChatList()">←</button>
                     <img id="room-avatar" src="" alt="Avatar">
                     <div class="info">
@@ -438,21 +372,44 @@
                         <p>online</p>
                     </div>
                 </div>
-                <div class="app-content" id="room-body" style="background: #efeae2; flex: 1;"></div>
-                <div class="chat-footer" id="room-footer"></div>
+                <div class="app-content" id="room-body"></div>
+                
+                <!-- Footer & Pilihan Balasan -->
+                <div class="chat-footer">
+                    <div class="action-choices" id="room-footer"></div>
+                    <div class="input-row">
+                        <div class="fake-input">
+                            <span>Ketik pesan...</span>
+                            <span>📷</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keyboard Mockup -->
+                <div class="ios-keyboard">
+                    <div class="kb-row">
+                        <div class="kb-key">q</div><div class="kb-key">w</div><div class="kb-key">e</div><div class="kb-key">r</div><div class="kb-key">t</div><div class="kb-key">y</div><div class="kb-key">u</div><div class="kb-key">i</div><div class="kb-key">o</div><div class="kb-key">p</div>
+                    </div>
+                    <div class="kb-row">
+                        <div class="kb-key">a</div><div class="kb-key">s</div><div class="kb-key">d</div><div class="kb-key">f</div><div class="kb-key">g</div><div class="kb-key">h</div><div class="kb-key">j</div><div class="kb-key">k</div><div class="kb-key">l</div>
+                    </div>
+                    <div class="kb-row">
+                        <div class="kb-key" style="width: 45px; font-size: 11px;">⇧</div><div class="kb-key">z</div><div class="kb-key">x</div><div class="kb-key">c</div><div class="kb-key">v</div><div class="kb-key">b</div><div class="kb-key">n</div><div class="kb-key">m</div><div class="kb-key" style="width: 45px; font-size: 11px;">⌫</div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- GALLERY APP -->
         <div id="gallery-app" class="app-window">
-            <div class="app-header" style="background: #e11d48;">
+            <div class="app-header" style="background: #202c33;">
                 <button class="back-btn" onclick="closeApp()">←</button>
                 <div class="info">
                     <h3>Galeri Rahasia</h3>
                     <p>Kumpulan foto rahasia</p>
                 </div>
             </div>
-            <div class="app-content" style="background: #111; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; align-content: start;">
+            <div class="app-content" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; align-content: start;">
                 <img src="https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d159a4732107e.jpg" style="width:100%; height:140px; object-fit:cover; border-radius:10px;" alt="Foto 1">
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" style="width:100%; height:140px; object-fit:cover; border-radius:10px;" alt="Foto 2">
             </div>
@@ -474,25 +431,19 @@
             if (enteredPin.length < 4) {
                 enteredPin += num;
                 updateDots();
-                if (enteredPin.length === 4) {
-                    checkPin();
-                }
+                if (enteredPin.length === 4) checkPin();
             }
         }
-
         function clearPin() {
             enteredPin = "";
             updateDots();
             document.getElementById('error-msg').innerText = "";
         }
-
         function updateDots() {
             for (let i = 0; i < 4; i++) {
-                const dot = document.getElementById(`dot-${i}`);
-                dot.classList.toggle('active', i < enteredPin.length);
+                document.getElementById(`dot-${i}`).classList.toggle('active', i < enteredPin.length);
             }
         }
-
         function checkPin() {
             if (enteredPin === correctPin) {
                 const lockscreen = document.getElementById('lockscreen');
@@ -508,9 +459,7 @@
             }
         }
 
-        function openApp(appId) {
-            document.getElementById(appId).style.display = "flex";
-        }
+        function openApp(appId) { document.getElementById(appId).style.display = "flex"; }
         function closeApp() {
             document.querySelectorAll('.app-window').forEach(win => win.style.display = "none");
             backToChatList();
@@ -537,53 +486,46 @@
         const stories = {
             kimmy_1: {
                 messages: [
-                    { sender: 'incoming', text: "Hai sayang! Besok jadi kan pulang sekolah bareng? Aku bawain jajanan kesukaan kamu loh. ❤️", time: "19.30" }
+                    { sender: 'incoming', text: "aku keujanannn", time: "5:20 PM" }
                 ],
                 choices: [
-                    { text: "Balas: 'Jadi dong! Ga sabar ketemu kamu Kim.'", next: 'kimmy_2' },
-                    { text: "Balas: 'Maaf banget Kim, besok aku kayaknya ada urusan mendadak...'", next: 'kimmy_busy' }
+                    { text: "Balas: 'ehhhhh hari ini ya kimm astagaaa aku lupaaaa'", next: 'kimmy_2' }
                 ]
             },
             kimmy_2: {
                 messages: [
-                    { sender: 'outgoing', text: "Jadi dong! Ga sabar ketemu kamu Kim.", time: "19.31" },
-                    { sender: 'incoming', text: "Yey! Oke deh, aku tunggu di depan gerbang ya besok! 😊", time: "19.32" }
+                    { sender: 'outgoing', text: "ehhhhh hari ini ya kimm\nastagaaa\naku lupaaaa", time: "5:40 PM" },
+                    { sender: 'incoming', text: "ah elahhhhh\ndah jam berapa ini???? kita kan janjian jam 5\njadinya kamu kesini apa engga.", time: "5:43 PM" }
                 ],
-                choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
+                choices: [
+                    { text: "Balas: 'iyaa bentar, kalo setengah jam lagi aku kesana'", next: 'kimmy_3' }
+                ]
             },
-            kimmy_busy: {
+            kimmy_3: {
                 messages: [
-                    { sender: 'outgoing', text: "Maaf banget Kim, besok aku kayaknya ada urusan mendadak...", time: "19.31" },
-                    { sender: 'incoming', text: "Oh... begitu ya. Yaudah nggak apa-apa, lain kali aja ya :(", time: "19.33" }
+                    { sender: 'outgoing', text: "iyaa bentar\nkalo setengah jam lagi aku kesana,", time: "5:44 PM" },
+                    { sender: 'incoming', text: "Yaudah jangan lama-lama ya! Hati-hati di jalan. ❤️", time: "5:45 PM" }
                 ],
                 choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
             },
             erine_1: {
                 messages: [
-                    { sender: 'incoming', text: "P. Besok kelar les, tungguin aku di parkiran belakang. Jangan ke mana-mana.", time: "19.40" }
+                    { sender: 'incoming', text: "P. Besok kelar les, tungguin aku di parkiran belakang.", time: "19.40" }
                 ],
                 choices: [
-                    { text: "Balas: 'Siap Rin, aku tungguin di sana.'", next: 'erine_2' },
-                    { text: "Balas: 'Duh Rin, besok aku mau bareng Kimmy...' (Ketahuan selingkuh!)", next: 'erine_angry' }
+                    { text: "Balas: 'Siap Rin, aku tungguin di sana.'", next: 'erine_2' }
                 ]
             },
             erine_2: {
                 messages: [
                     { sender: 'outgoing', text: "Siap Rin, aku tungguin di sana.", time: "19.41" },
-                    { sender: 'incoming', text: "Bagus. Jangan telat, atau lu tau akibatnya.", time: "19.42" }
-                ],
-                choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
-            },
-            erine_angry: {
-                messages: [
-                    { sender: 'outgoing', text: "Duh Rin, besok aku mau bareng Kimmy...", time: "19.41" },
-                    { sender: 'incoming', text: "Oh? Lu sengaja mainin gue?! Lu lebih milih dia daripada gue?! Anjir lah.", time: "19.43" }
+                    { sender: 'incoming', text: "Bagus. Jangan telat.", time: "19.42" }
                 ],
                 choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
             },
             ribka_1: {
                 messages: [
-                    { sender: 'incoming', text: "Kamu beneran sayang nggak sih sama aku? Kok akhir-akhir ini sering ngilang pas di chat?", time: "20.10" }
+                    { sender: 'incoming', text: "Kamu beneran sayang nggak sih sama aku? Kok akhir-akhir ini sering ngilang?", time: "20.10" }
                 ],
                 choices: [
                     { text: "Balas: 'Sayang banget kok Ribka, cuma lagi sibuk tugas.'", next: 'ribka_2' }
@@ -592,7 +534,7 @@
             ribka_2: {
                 messages: [
                     { sender: 'outgoing', text: "Sayang banget kok Ribka, cuma lagi sibuk tugas.", time: "20.11" },
-                    { sender: 'incoming', text: "Hati-hati ya kalau bohong. Aku tuh curiga kamu deket sama yang lain...", time: "20.12" }
+                    { sender: 'incoming', text: "Hati-hati ya kalau bohong...", time: "20.12" }
                 ],
                 choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
             }
@@ -633,10 +575,11 @@
                 setTimeout(() => {
                     const bubble = document.createElement('div');
                     bubble.classList.add('bubble', msg.sender);
-                    bubble.innerHTML = `${msg.text}<div class="time">${msg.time}</div>`;
+                    const checkmark = msg.sender === 'outgoing' ? '<span style="color:#53bdeb; margin-left:4px;">✓✓</span>' : '';
+                    bubble.innerHTML = `${msg.text.replace(/\n/g, '<br>')}<span class="time">${msg.time}${checkmark}</span>`;
                     roomBody.appendChild(bubble);
                     roomBody.scrollTop = roomBody.scrollHeight;
-                }, index * 500);
+                }, index * 400);
             });
 
             roomFooter.innerHTML = '';
@@ -648,7 +591,7 @@
                     btn.onclick = () => loadScene(choice.next);
                     roomFooter.appendChild(btn);
                 });
-            }, storiesData.messages.length * 500);
+            }, storiesData.messages.length * 400);
         }
     </script>
 </body>
