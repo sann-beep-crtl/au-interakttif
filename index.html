@@ -61,19 +61,54 @@
         .island-sensor { width: 9px; height: 9px; background-color: #050505; border-radius: 50%; }
 
         /* Status Bar iOS */
-   .status {
+  .status-bar{
     position: absolute;
-    top: 12px;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
-    color: white;
-    font-size: 14px;
+    align-items: center;
+    padding: 14px 28px 0 32px;
+    color: #fff;
     font-weight: 600;
     z-index: 10;
-}
+  }
+  .time{
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+  .right-icons{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+  }
+  .battery{
+    width: 28px;
+    height: 13px;
+    border: 1.2px solid rgba(255,255,255,0.5);
+    border-radius: 4px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1.5px;
+  }
+  .battery::after{
+    content: "";
+    position: absolute;
+    right: -3.5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 4px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 2px;
+  }
+  .battery-fill{
+    width: 85%;
+    height: 100%;
+    background: #fff;
+    border-radius: 2px;
+  }
         .status-right { display: flex; align-items: center; gap: 6px; font-size: 12px; }
 
         /* Lockscreen dengan Notifikasi WhatsApp */
