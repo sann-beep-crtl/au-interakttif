@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPhone 14 Pro Max - AU Interaktif</title>
+    <title>punya sann woi - Interactive AU </title>
     <style>
         * {
             box-sizing: border-box;
@@ -75,7 +75,7 @@
         }
         .status-right { display: flex; align-items: center; gap: 6px; font-size: 12px; }
 
-        /* Lockscreen */
+        /* Lockscreen dengan Notifikasi WhatsApp */
         #lockscreen {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -83,7 +83,6 @@
             color: white;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             align-items: center;
             z-index: 100;
             padding: 60px 20px 40px 20px;
@@ -94,7 +93,27 @@
         .lock-time-box { margin-top: 10px; }
         .lock-time { font-size: 76px; font-weight: 300; letter-spacing: -2px; text-shadow: 0 4px 15px rgba(0,0,0,0.7); }
         .lock-date { font-size: 16px; font-weight: 500; opacity: 0.95; text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
+        
+        /* Notif Lockscreen */
+        .lock-notification {
+            width: 100%;
+            background: rgba(30, 30, 30, 0.65);
+            backdrop-filter: blur(25px);
+            border-radius: 20px;
+            padding: 14px 16px;
+            margin-top: 25px;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .notif-header { display: flex; align-items: center; gap: 8px; font-size: 12px; opacity: 0.8; margin-bottom: 4px; }
+        .notif-header img { width: 16px; height: 16px; border-radius: 50%; }
+        .notif-body h5 { font-size: 13px; font-weight: 600; color: #fff; }
+        .notif-body p { font-size: 12px; color: #ddd; margin-top: 2px; }
+
         .lock-prompt {
+            position: absolute;
+            bottom: 40px;
             font-size: 13px;
             opacity: 0.8;
             background: rgba(0,0,0,0.3);
@@ -225,7 +244,7 @@
         .chat-list-info h4 { font-size: 14px; color: #e9edef; }
         .chat-list-info p { font-size: 12px; color: #8696a0; margin-top: 2px; }
 
-        /* WhatsApp Dark Mode Bubbles */
+        /* WhatsApp Bubbles */
         .bubble {
             max-width: 80%;
             padding: 8px 12px;
@@ -238,6 +257,22 @@
         .bubble.incoming { background-color: #202c33; color: #e9edef; align-self: flex-start; border-top-left-radius: 0; }
         .bubble.outgoing { background-color: #005c4b; color: #e9edef; align-self: flex-end; border-top-right-radius: 0; }
         .time { font-size: 10px; color: #8696a0; float: right; margin-left: 8px; margin-top: 4px; display: flex; align-items: center; gap: 2px; }
+
+        /* Efek Typing (Titik-titik bergerak) */
+        .typing-bubble {
+            background-color: #202c33;
+            color: #8696a0;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border-top-left-radius: 0;
+            align-self: flex-start;
+            font-size: 18px;
+            letter-spacing: 2px;
+            display: inline-flex;
+            align-items: center;
+            animation: blink 1.2s infinite;
+        }
+        @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
 
         .chat-footer { background-color: #202c33; padding: 8px 12px; display: flex; flex-direction: column; gap: 8px; }
         .fake-input { background-color: #2a3942; color: #8696a0; padding: 10px 14px; border-radius: 20px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
@@ -277,12 +312,25 @@
             </div>
         </div>
 
-        <!-- LOCKSCREEN -->
+        <!-- LOCKSCREEN + NOTIFIKASI WHATSAPP -->
         <div id="lockscreen" onclick="showPinScreen()">
             <div class="lock-time-box">
                 <div class="lock-time" id="lock-clock">21:43</div>
                 <div class="lock-date">Sabtu, 8 November</div>
             </div>
+
+            <!-- Notifikasi Kimmy -->
+            <div class="lock-notification">
+                <div class="notif-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
+                    <span>WHATSAPP • 1m ago</span>
+                </div>
+                <div class="notif-body">
+                    <h5>Kimmy🐹🤍 </h5>
+                    <p>kamu dimana...</p>
+                </div>
+            </div>
+
             <div class="lock-prompt">Ketuk untuk Membuka</div>
         </div>
 
@@ -365,8 +413,8 @@
                 <div class="chat-list-item" onclick="openChat('kimmy')">
                     <img src="https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d159a4732107e.jpg" alt="Kimmy">
                     <div class="chat-list-info">
-                        <h4>Kimmy 🧸</h4>
-                        <p>aku keujanannn...</p>
+                        <h4>Kimmy 🐹🤍</h4>
+                        <p>kamu dimana...</p>
                     </div>
                 </div>
                 <div class="chat-list-item" onclick="openChat('erine')">
@@ -392,7 +440,7 @@
                     <img id="room-avatar" src="" alt="Avatar">
                     <div class="info">
                         <h3 id="room-name">Nama</h3>
-                        <p>online</p>
+                        <p id="room-status">online</p>
                     </div>
                 </div>
                 <div class="app-content" id="room-body"></div>
@@ -417,7 +465,7 @@
         <div id="gallery-app" class="app-window">
             <div class="app-header">
                 <button class="back-btn" onclick="closeApp()">‹ Home</button>
-                <div class="info"><h3>Galeri Rahasia</h3></div>
+                <div class="info"><h3>Kimmy </h3></div>
             </div>
             <div class="app-content" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; align-content: start;">
                 <img src="https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d159a4732107e.jpg" style="width:100%; height:140px; object-fit:cover; border-radius:10px;" alt="">
@@ -484,51 +532,51 @@
         }
 
         const chatData = {
-            kimmy: { name: "Kimmy 🧸", avatar: "https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d159a4732107e.jpg", startScene: 'kimmy_1' },
+            kimmy: { name: "Kimmy 🐹🤍", avatar: "https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d159a4732107e.jpg", startScene: 'kimmy_1' },
             erine: { name: "Erine 🔥", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop", startScene: 'erine_1' },
             ribka: { name: "Ribka 💫", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop", startScene: 'ribka_1' }
         };
 
         const stories = {
             kimmy_1: {
-                messages: [{ sender: 'incoming', text: "aku keujanannn", time: "5:20 PM" }],
-                choices: [{ text: "Balas: 'ehhhhh hari ini ya kimm astagaaa aku lupaaaa'", next: 'kimmy_2' }]
+                messages: [{ sender: 'incoming', text: "kamu dimana", time: "5:20 PM" }],
+                choices: [{ text: "eh aku masih dikampus, ini otw jemput kamu", next: 'kimmy_2' }]
             },
             kimmy_2: {
                 messages: [
-                    { sender: 'outgoing', text: "ehhhhh hari ini ya kimm\nastagaaa\naku lupaaaa", time: "5:40 PM" },
-                    { sender: 'incoming', text: "ah elahhhhh\ndah jam berapa ini???? kita kan janjian jam 5\njadinya kamu kesini apa engga.", time: "5:43 PM" }
+                    { sender: 'outgoing', text: "eh aku masih\ndikampus\nini otw jemput kamu", time: "5:40 PM" },
+                    { sender: 'incoming', text: "okeee\njangan lama lama lama yaaa\nkita jadi main kan?.", time: "5:43 PM" }
                 ],
-                choices: [{ text: "Balas: 'iyaa bentar, kalo setengah jam lagi aku kesana'", next: 'kimmy_3' }]
+                choices: [{ text: "iyaa jadi, bentar yaaa, aku usahain secepat mungkin", next: 'kimmy_3' }]
             },
             kimmy_3: {
                 messages: [
-                    { sender: 'outgoing', text: "iyaa bentar\nkalo setengah jam lagi aku kesana,", time: "5:44 PM" },
-                    { sender: 'incoming', text: "Yaudah jangan lama-lama ya! Hati-hati di jalan. ❤️", time: "5:45 PM" }
+                    { sender: 'outgoing', text: "iyaa jadi\nbentar yaaa, aku usahain secepat mungkin,", time: "5:44 PM" },
+                    { sender: 'incoming', text: "okee jangan lama-lama ya! Hati-hati di jalan. ❤️", time: "5:45 PM" }
                 ],
-                choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
+                choices: []
             },
             erine_1: {
-                messages: [{ sender: 'incoming', text: "P. Besok kelar les, tungguin aku di parkiran belakang.", time: "19.40" }],
-                choices: [{ text: "Balas: 'Siap Rin, aku tungguin di sana.'", next: 'erine_2' }]
+                messages: [{ sender: 'incoming', text: "P. besok selesai kelas, tungguin aku di parkiran belakang.", time: "19.40" }],
+                choices: [{ text: "siap, aku tungguin di sana.", next: 'erine_2' }]
             },
             erine_2: {
                 messages: [
-                    { sender: 'outgoing', text: "Siap Rin, aku tungguin di sana.", time: "19.41" },
-                    { sender: 'incoming', text: "Bagus. Jangan telat.", time: "19.42" }
+                    { sender: 'outgoing', text: "siap, aku tungguin di sana.", time: "19.41" },
+                    { sender: 'incoming', text: "bagus. jangan telat.", time: "19.42" }
                 ],
-                choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
+                choices: []
             },
             ribka_1: {
                 messages: [{ sender: 'incoming', text: "Kamu beneran sayang nggak sih sama aku? Kok akhir-akhir ini sering ngilang?", time: "20.10" }],
-                choices: [{ text: "Balas: 'Sayang banget kok Ribka, cuma lagi sibuk tugas.'", next: 'ribka_2' }]
+                choices: [{ text: "sayang banget kokk, cuma lagi sibuk tugas.", next: 'ribka_2' }]
             },
             ribka_2: {
                 messages: [
-                    { sender: 'outgoing', text: "Sayang banget kok Ribka, cuma lagi sibuk tugas.", time: "20.11" },
-                    { sender: 'incoming', text: "Hati-hati ya kalau bohong...", time: "20.12" }
+                    { sender: 'outgoing', text: "sayang banget kokk, cuma lagi sibuk tugas.", time: "20.11" },
+                    { sender: 'incoming', text: "hati-hati ya kalau bohong...", time: "20.12" }
                 ],
-                choices: [{ text: "🔄 Kembali ke Menu Chat", next: 'menu' }]
+                choices: []
             }
         };
 
@@ -549,23 +597,47 @@
         }
 
         function loadScene(sceneKey) {
-            if (sceneKey === 'menu') { backToChatList(); return; }
             const storiesData = stories[sceneKey];
             const roomBody = document.getElementById('room-body');
             const roomFooter = document.getElementById('room-footer');
+            const roomStatus = document.getElementById('room-status');
 
+            roomFooter.innerHTML = '';
+            
+            let delayIndex = 0;
             storiesData.messages.forEach((msg, index) => {
+                if (msg.sender === 'incoming') {
+                    // Tampilkan efek typing (.....) sebelum pesan masuk
+                    setTimeout(() => {
+                        roomStatus.innerText = "typing...";
+                        const typingDiv = document.createElement('div');
+                        typingDiv.classList.add('typing-bubble');
+                        typingDiv.id = 'temp-typing';
+                        typingDiv.innerHTML = '.....';
+                        roomBody.appendChild(typingDiv);
+                        roomBody.scrollTop = roomBody.scrollHeight;
+                    }, delayIndex);
+                    delayIndex += 800;
+                }
+
                 setTimeout(() => {
+                    // Hapus elemen typing jika ada
+                    const typingEl = document.getElementById('temp-typing');
+                    if (typingEl) typingEl.remove();
+                    roomStatus.innerText = "online";
+
                     const bubble = document.createElement('div');
                     bubble.classList.add('bubble', msg.sender);
                     const checkmark = msg.sender === 'outgoing' ? '<span style="color:#53bdeb; margin-left:4px;">✓✓</span>' : '';
                     bubble.innerHTML = `${msg.text.replace(/\n/g, '<br>')}<span class="time">${msg.time}${checkmark}</span>`;
                     roomBody.appendChild(bubble);
                     roomBody.scrollTop = roomBody.scrollHeight;
-                }, index * 300);
+                }, delayIndex);
+
+                delayIndex += 600;
             });
 
-            roomFooter.innerHTML = '';
+            // Tampilkan pilihan tombol balasan setelah pesan selesai muncul
             setTimeout(() => {
                 storiesData.choices.forEach(choice => {
                     const btn = document.createElement('button');
@@ -574,7 +646,7 @@
                     btn.onclick = () => loadScene(choice.next);
                     roomFooter.appendChild(btn);
                 });
-            }, storiesData.messages.length * 300);
+            }, delayIndex);
         }
     </script>
 </body>
