@@ -95,17 +95,20 @@
         .lock-date { font-size: 16px; font-weight: 500; opacity: 0.95; text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
         
         /* Notif Lockscreen */
-        .lock-notification {
-            width: 100%;
-            background: rgba(30, 30, 30, 0.65);
-            backdrop-filter: blur(25px);
-            border-radius: 20px;
-            padding: 14px 16px;
-            margin-top: 25px;
-            text-align: left;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+     .lock-notification {
+    background: rgba(30, 30, 30, 0.65);
+    backdrop-filter: blur(25px);
+    border-radius: 20px;
+    padding: 14px 16px;
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    text-align: left;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+}
         .notif-header { display: flex; align-items: center; gap: 8px; font-size: 12px; opacity: 0.8; margin-bottom: 4px; }
         .notif-header img { width: 16px; height: 16px; border-radius: 50%; }
         .notif-body h5 { font-size: 13px; font-weight: 600; color: #fff; }
