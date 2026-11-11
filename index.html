@@ -1,66 +1,30 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>punya sann woi - Interactive AU </title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-        body {
-            background-color: #0b0f19;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .phone-container {
-            width: 100%;
-            max-width: 410px;
-            height: 100%;
-            max-height: 850px;
-            background-color: #000;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-            position: relative;
-            overflow: hidden;
-        }
-        @media (min-width: 411px) {
-            .phone-container {
-                border-radius: 50px;
-                height: 88vh;
-                border: 12px solid #2b2b2b;
-                outline: 4px solid #111;
-            }
-        }
-        
-        /* Dynamic Island */
-        .dynamic-island {
-            position: absolute;
-            top: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 32px;
-            background-color: #000;
-            border-radius: 20px;
-            z-index: 200;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-        .island-cam { width: 11px; height: 11px; background-color: #111; border-radius: 50%; }
-        .island-sensor { width: 9px; height: 9px; background-color: #050505; border-radius: 50%; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alternate Universe</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:#000;
+    font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", Helvetica, Arial, sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+  .phone{
+    width:100%;
+    max-width:430px;
+    height:100vh;
+    max-height:880px;
+    position:relative;
+    background:url('https://images.unsplash.com/photo-1428592953211-077101b2021b?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
+    overflow:hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
 
-        /* Status Bar iOS */
   /* Status Bar Atas ala iPhone */
   .status-bar{
     position: absolute;
@@ -73,7 +37,7 @@
     font-weight: 600;
     z-index: 100;
   }
-  .time{
+  .time-status{
     font-size: 15px;
     letter-spacing: 0.5px;
   }
@@ -110,550 +74,122 @@
     background: #fff;
     border-radius: 1px;
   }
-        .status-right { display: flex; align-items: center; gap: 6px; font-size: 12px; }
 
-        /* Lockscreen dengan Notifikasi WhatsApp */
-        #lockscreen {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('kim.jpeg') no-repeat center center/cover;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 100;
-            padding: 60px 20px 40px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: opacity 0.4s ease;
-        }
-        .lock-time-box { margin-top: 10px; }
-        .lock-time { font-size: 76px; font-weight: 300; letter-spacing: -2px; text-shadow: 0 4px 15px rgba(0,0,0,0.7); }
-        .lock-date { font-size: 16px; font-weight: 500; opacity: 0.95; text-shadow: 0 2px 8px rgba(0,0,0,0.7); }
-        
-        /* Notif Lockscreen */
-   <div class="passcode-screen" id="passcodeScreen">
-    <div class="passcode-title">Enter Passcode</div>
-    <div class="passcode-dots">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-    </div>
-    
-    <div class="keypad">
-        <div class="key" onclick="pressKey(1)">1</div>
-        <div class="key" onclick="pressKey(2)">2 <span>ABC</span></div>
-        <div class="key" onclick="pressKey(3)">3 <span>DEF</span></div>
-        <div class="key" onclick="pressKey(4)">4 <span>GHI</span></div>
-        <div class="key" onclick="pressKey(5)">5 <span>JKL</span></div>
-        <div class="key" onclick="pressKey(6)">6 <span>MNO</span></div>
-        <div class="key" onclick="pressKey(7)">7 <span>PQRS</span></div>
-        <div class="key" onclick="pressKey(8)">8 <span>TUV</span></div>
-        <div class="key" onclick="pressKey(9)">9 <span>WXYZ</span></div>
-        <div class="key empty"></div>
-        <div class="key" onclick="pressKey(0)">0</div>
-        <div class="key empty"></div>
-    </div>
+  /* Tampilan Jam Lockscreen Tengah */
+  .lock-screen-content {
+    position: absolute;
+    top: 90px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    z-index: 10;
+  }
+  .lock-time {
+    font-size: 76px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+  .lock-date {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 6px;
+  }
 
-    <div class="passcode-footer">
-        <span>Emergency</span>
-        <span>Cancel</span>
-    </div>
-</div>
-        .key span { font-size: 9px; letter-spacing: 1.5px; opacity: 0.7; margin-top: -2px; text-transform: uppercase; }
-        .key:active { background: rgba(255, 255, 255, 0.35); }
-        .error-msg { color: #ffb4ab; font-size: 13px; height: 20px; text-align: center; }
-
-        /* Homescreen iOS Penuh */
-        #homescreen {
-            display: none;
-            flex: 1;
-            background: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000&auto=format&fit=crop') no-repeat center center/cover;
-            padding: 50px 18px 20px 18px;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-        }
-        .widgets-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 10px; }
-        .widget {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 14px;
-            color: white;
-            font-size: 13px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .home-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 10px; align-content: start; }
-        .app-icon { display: flex; flex-direction: column; align-items: center; cursor: pointer; gap: 5px; }
-        .app-icon img { width: 58px; height: 58px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); object-fit: cover; }
-        .app-icon span { color: white; font-size: 11px; text-shadow: 0 1px 3px rgba(0,0,0,0.9); font-weight: 500; }
-        
-        .dock {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(25px);
-            border-radius: 30px;
-            padding: 10px 14px;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 5px;
-        }
-        .dock .app-icon img { width: 54px; height: 54px; }
-
-        /* App Window */
-        .app-window {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #0b141a;
-            display: none;
-            flex-direction: column;
-            z-index: 130;
-            padding-top: 48px;
-        }
-        .app-header {
-            background-color: #202c33;
-            color: #e9edef;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        }
-        .back-btn { background: none; border: none; color: #53bdeb; font-size: 16px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-        .app-header img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
-        .app-header .info h3 { font-size: 15px; color: #e9edef; }
-        .app-header .info p { font-size: 11px; color: #8696a0; }
-        
-        .app-content {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            background-color: #0b141a;
-        }
-        
-        .chat-list-item {
-            background: #111b21;
-            padding: 12px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            margin-bottom: 8px;
-        }
-        .chat-list-item img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
-        .chat-list-info h4 { font-size: 14px; color: #e9edef; }
-        .chat-list-info p { font-size: 12px; color: #8696a0; margin-top: 2px; }
-
-        /* WhatsApp Bubbles */
-        .bubble {
-            max-width: 80%;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 13.5px;
-            line-height: 1.4;
-            position: relative;
-            word-wrap: break-word;
-        }
-        .bubble.incoming { background-color: #202c33; color: #e9edef; align-self: flex-start; border-top-left-radius: 0; }
-        .bubble.outgoing { background-color: #005c4b; color: #e9edef; align-self: flex-end; border-top-right-radius: 0; }
-        .time { font-size: 10px; color: #8696a0; float: right; margin-left: 8px; margin-top: 4px; display: flex; align-items: center; gap: 2px; }
-
-        /* Efek Typing (Titik-titik bergerak) */
-        .typing-bubble {
-            background-color: #202c33;
-            color: #8696a0;
-            padding: 10px 14px;
-            border-radius: 8px;
-            border-top-left-radius: 0;
-            align-self: flex-start;
-            font-size: 18px;
-            letter-spacing: 2px;
-            display: inline-flex;
-            align-items: center;
-            animation: blink 1.2s infinite;
-        }
-        @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
-
-        .chat-footer { background-color: #202c33; padding: 8px 12px; display: flex; flex-direction: column; gap: 8px; }
-        .fake-input { background-color: #2a3942; color: #8696a0; padding: 10px 14px; border-radius: 20px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
-        .action-choices { display: flex; flex-direction: column; gap: 6px; }
-        .choice-btn {
-            background-color: #111b21;
-            border: 1px solid #005c4b;
-            color: #25d366;
-            padding: 10px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-        }
-        .choice-btn:hover { background-color: #005c4b; color: white; }
-
-        .ios-keyboard { background-color: #182229; padding: 6px 4px 18px 4px; display: flex; flex-direction: column; gap: 5px; border-top: 1px solid #222d34; }
-        .kb-row { display: flex; justify-content: center; gap: 4px; }
-        .kb-key { background-color: #374248; color: white; font-size: 13px; padding: 7px 0; width: 31px; height: 36px; border-radius: 5px; display: flex; justify-content: center; align-items: center; }
-    </style>
+  /* Kotak Notifikasi WhatsApp Lockscreen (Dijamin Rapi & Ikon Kecil) */
+  .lock-notification {
+    background: rgba(30, 30, 30, 0.75);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-radius: 20px;
+    padding: 12px 16px;
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 380px;
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  /* PENTING: Pengaman ukuran foto agar tidak jadi raksasa */
+  .lock-notification img {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    max-width: 38px !important;
+    max-height: 38px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .notif-text h4 {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.8;
+    margin-bottom: 2px;
+    letter-spacing: 0.3px;
+  }
+  .notif-text p {
+    font-size: 14px;
+    font-weight: 400;
+  }
+</style>
 </head>
 <body>
 
-    <div class="phone-container">
-        <!-- Dynamic Island -->
-        <div class="dynamic-island">
-            <div class="island-sensor"></div>
-            <div class="island-cam"></div>
-        </div>
-
-        <!-- iOS Status Bar -->
-        <div class="status-bar">
-            <span id="current-time">21:43</span>
-            <div class="status-right">
-                <span>5G</span>
-                <span>🔋</span>
-            </div>
-        </div>
-
-        <!-- LOCKSCREEN + NOTIFIKASI WHATSAPP -->
-        <div id="lockscreen" onclick="showPinScreen()">
-            <div class="lock-time-box">
-                <div class="lock-time" id="lock-clock">21:43</div>
-                <div class="lock-date">Senin, 11 November</div>
-            </div>
-
-            <!-- Notifikasi Kimmy -->
-            <div class="lock-notification">
-                <div class="notif-header">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA">
-                    <span>WHATSAPP • 1m ago</span>
-                </div>
-                <div class="notif-body">
-                    <h5>Kimmy🐹🤍 </h5>
-                    <p>kamu dimana...</p>
-                </div>
-            </div>
-
-            <div class="lock-prompt">Ketuk untuk Membuka</div>
-        </div>
-
-        <!-- KEYPAD PIN OVERLAY -->
-        <div class="pin-overlay" id="pin-overlay">
-            <div style="text-align: center; color: white;">
-                <p style="font-size: 15px; font-weight: 500; margin-bottom: 5px;">Enter Passcode</p>
-                <div class="pin-dots">
-                    <div class="dot" id="dot-0"></div>
-                    <div class="dot" id="dot-1"></div>
-                    <div class="dot" id="dot-2"></div>
-                    <div class="dot" id="dot-3"></div>
-                </div>
-            </div>
-            <div class="keypad">
-                <button class="key" onclick="pressKey('1')">1<span></span></button>
-                <button class="key" onclick="pressKey('2')">2<span>abc</span></button>
-                <button class="key" onclick="pressKey('3')">3<span>def</span></button>
-                <button class="key" onclick="pressKey('4')">4<span>ghi</span></button>
-                <button class="key" onclick="pressKey('5')">5<span>jkl</span></button>
-                <button class="key" onclick="pressKey('6')">6<span>mno</span></button>
-                <button class="key" onclick="pressKey('7')">7<span>pqrs</span></button>
-                <button class="key" onclick="pressKey('8')">8<span>tuv</span></button>
-                <button class="key" onclick="pressKey('9')">9<span>wxyz</span></button>
-                <button class="key" style="visibility: hidden;"></button>
-                <button class="key" onclick="pressKey('0')">0</button>
-                <button class="key" onclick="clearPin()">⌫</button>
-            </div>
-            <div class="error-msg" id="error-msg"></div>
-        </div>
-
-        <!-- HOMESCREEN iOS -->
-        <div id="homescreen">
-            <div class="widgets-row">
-                <div class="widget">
-                    <div style="font-size: 11px; opacity: 0.8; font-weight: 600;">SABTU, 8 NOV</div>
-                    <div style="font-size: 28px; font-weight: 300; margin-top: 2px;">22</div>
-                </div>
-                <div class="widget">
-                    <div style="font-size: 11px; opacity: 0.8; font-weight: 600;">Cuaca ⛅</div>
-                    <div style="font-size: 18px; font-weight: 500; margin-top: 4px;">26°C Hujan</div>
-                </div>
-            </div>
-
-            <div class="home-grid">
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=200&auto=format&fit=crop" alt=""><span>Photos</span></div>
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?q=80&w=200&auto=format&fit=crop" alt=""><span>Mail</span></div>
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1557264337-e8a93017f925?q=80&w=200&auto=format&fit=crop" alt=""><span>Weather</span></div>
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=200&auto=format&fit=crop" alt=""><span>Calendar</span></div>
-                
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1517842645767-c639042777db?q=80&w=200&auto=format&fit=crop" alt=""><span>Notes</span></div>
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=200&auto=format&fit=crop" alt=""><span>Maps</span></div>
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?q=80&w=200&auto=format&fit=crop" alt=""><span>X</span></div>
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1512758017271-d7b84c2113f1?q=80&w=200&auto=format&fit=crop" alt=""><span>Settings</span></div>
-
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=200&auto=format&fit=crop" alt=""><span>Camera</span></div>
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=200&auto=format&fit=crop" alt=""><span>Clock</span></div>
-                <div class="app-icon" onclick="openApp('gallery-app')"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt=""><span>Galeri</span></div>
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1611262588024-d12430b98920?q=80&w=200&auto=format&fit=crop" alt=""><span>Instagram</span></div>
-            </div>
-
-            <!-- DOCK -->
-            <div class="dock">
-                <div class="app-icon" onclick="openApp('chat-app')"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"></div>
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=200&auto=format&fit=crop" alt=""></div>
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=200&auto=format&fit=crop" alt=""></div>
-                <div class="app-icon"><img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=200&auto=format&fit=crop" alt=""></div>
-            </div>
-        </div>
-
-        <!-- WHATSAPP APP -->
-        <div id="chat-app" class="app-window">
-            <div class="app-header">
-                <button class="back-btn" onclick="closeApp()">‹ Chats</button>
-                <div class="info">
-                    <h3>WhatsApp</h3>
-                </div>
-            </div>
-            <div class="app-content" id="chat-menu-view">
-                <div class="chat-list-item" onclick="openChat('kimmy')">
-                    <img src="WhatsApp Image 2024-10-08 at 15.26.38_2652ad27.jpg" alt="Kimmy">
-                    <div class="chat-list-info">
-                        <h4>Kimmy 🐹🤍</h4>
-                        <p>kamu dimana...</p>
-                    </div>
-                </div>
-                <div class="chat-list-item" onclick="openChat('erine')">
-                    <img src="erine.jpeg" alt="Erine">
-                    <div class="chat-list-info">
-                        <h4>Erine 🔥</h4>
-                        <p>P. Besok tungguin aku di parkiran...</p>
-                    </div>
-                </div>
-                <div class="chat-list-item" onclick="openChat('ribka')">
-                    <img src="ribka.webp" alt="Ribka">
-                    <div class="chat-list-info">
-                        <h4>Ribka 💫</h4>
-                        <p>Kamu di mana? Katanya mau nemenin...</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CHAT ROOM -->
-            <div id="chat-room-view" style="display: none; flex-direction: column; height: 100%;">
-                <div class="app-header">
-                    <button class="back-btn" onclick="backToChatList()">‹</button>
-                    <img id="room-avatar" src="" alt="Avatar">
-                    <div class="info">
-                        <h3 id="room-name">Nama</h3>
-                        <p id="room-status">online</p>
-                    </div>
-                </div>
-                <div class="app-content" id="room-body"></div>
-                
-                <div class="chat-footer">
-                    <div class="action-choices" id="room-footer"></div>
-                    <div class="fake-input">
-                        <span>Ketik pesan...</span>
-                        <span>📷</span>
-                    </div>
-                </div>
-
-                <div class="ios-keyboard">
-                    <div class="kb-row"><div class="kb-key">q</div><div class="kb-key">w</div><div class="kb-key">e</div><div class="kb-key">r</div><div class="kb-key">t</div><div class="kb-key">y</div><div class="kb-key">u</div><div class="kb-key">i</div><div class="kb-key">o</div><div class="kb-key">p</div></div>
-                    <div class="kb-row"><div class="kb-key">a</div><div class="kb-key">s</div><div class="kb-key">d</div><div class="kb-key">f</div><div class="kb-key">g</div><div class="kb-key">h</div><div class="kb-key">j</div><div class="kb-key">k</div><div class="kb-key">l</div></div>
-                    <div class="kb-row"><div class="kb-key" style="width:40px; font-size:11px;">⇧</div><div class="kb-key">z</div><div class="kb-key">x</div><div class="kb-key">c</div><div class="kb-key">v</div><div class="kb-key">b</div><div class="kb-key">n</div><div class="kb-key">m</div><div class="kb-key" style="width:40px; font-size:11px;">⌫</div></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- GALLERY APP -->
-        <div id="gallery-app" class="app-window">
-            <div class="app-header">
-                <button class="back-btn" onclick="closeApp()">‹ Home</button>
-                <div class="info"><h3>Kimmy </h3></div>
-            </div>
-            <div class="app-content" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; align-content: start;">
-                <img src="https://i.pinimg.com/736x/83/bc/8b/83bc8b88cf6bc4b4e04d159a4732107e.jpg" style="width:100%; height:140px; object-fit:cover; border-radius:10px;" alt="">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" style="width:100%; height:140px; object-fit:cover; border-radius:10px;" alt="">
-            </div>
-        </div>
+<div class="phone">
+  <!-- Status Bar Atas -->
+  <div class="status-bar">
+    <div class="time-status" id="statusBarTime">21:40</div>
+    <div class="right-icons">
+      <span>📶</span>
+      <span>📡</span>
+      <span class="battery"><span class="battery-fill"></span></span>
     </div>
+  </div>
 
-    <script>
-        setInterval(() => {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            document.getElementById('current-time').innerText = timeStr;
-            document.getElementById('lock-clock').innerText = timeStr;
-        }, 1000);
+  <!-- Jam Besar Lockscreen -->
+  <div class="lock-screen-content">
+    <div class="lock-time" id="lockTime">08:28</div>
+    <div class="lock-date">Senin, 11 November</div>
+  </div>
 
-        function showPinScreen() {
-            document.getElementById('lockscreen').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('lockscreen').style.display = 'none';
-                document.getElementById('pin-overlay').style.display = 'flex';
-            }, 400);
-        }
+  <!-- Notifikasi WhatsApp -->
+  <div class="lock-notification">
+    <img src="kimmy.jpg" alt="Kimmy">
+    <div class="notif-text">
+      <h4>WHATSAPP • 1m ago</h4>
+      <p>Kimmy: kamu dimana...</p>
+    </div>
+  </div>
+</div>
 
-        const correctPin = "1012";
-        let enteredPin = "";
+<script>
+  // Update Jam Real-time
+  function updateWaktu(){
+    let now = new Date();
+    let h = String(now.getHours()).padStart(2,'0');
+    let m = String(now.getMinutes()).padStart(2,'0');
+    let jamFormat = h + ':' + m;
+    
+    let elBar = document.getElementById('statusBarTime');
+    let elLock = document.getElementById('lockTime');
+    if(elBar) elBar.textContent = jamFormat;
+    if(elLock) elLock.textContent = jamFormat;
+  }
+  updateWaktu();
+  setInterval(updateWaktu, 1000);
+</script>
 
-        function pressKey(num) {
-            if (enteredPin.length < 4) {
-                enteredPin += num;
-                updateDots();
-                if (enteredPin.length === 4) checkPin();
-            }
-        }
-        function clearPin() {
-            enteredPin = "";
-            updateDots();
-            document.getElementById('error-msg').innerText = "";
-        }
-        function updateDots() {
-            for (let i = 0; i < 4; i++) {
-                document.getElementById(`dot-${i}`).classList.toggle('active', i < enteredPin.length);
-            }
-        }
-        function checkPin() {
-            if (enteredPin === correctPin) {
-                const overlay = document.getElementById('pin-overlay');
-                overlay.style.transition = "opacity 0.4s ease";
-                overlay.style.opacity = "0";
-                setTimeout(() => {
-                    overlay.style.display = "none";
-                    document.getElementById('homescreen').style.display = "flex";
-                }, 400);
-            } else {
-                document.getElementById('error-msg').innerText = "Passcode salah (Hint: 1012)";
-                setTimeout(clearPin, 1000);
-            }
-        }
-
-        function openApp(appId) { document.getElementById(appId).style.display = "flex"; }
-        function closeApp() {
-            document.querySelectorAll('.app-window').forEach(win => win.style.display = "none");
-            backToChatList();
-        }
-
-        const chatData = {
-            kimmy: { name: "Kimmy 🐹🤍", avatar: "WhatsApp Image 2024-10-08 at 15.26.38_2652ad27.jpg", startScene: 'kimmy_1' },
-            erine: { name: "Erine 🔥", avatar: "erine.jpeg", startScene: 'erine_1' },
-            ribka: { name: "Ribka 💫", avatar: "ribka.webp", startScene: 'ribka_1' }
-        };
-
-        const stories = {
-            kimmy_1: {
-                messages: [{ sender: 'incoming', text: "kamu dimana", time: "5:20 PM" }],
-                choices: [{ text: "eh aku masih dikampus, ini otw jemput kamu", next: 'kimmy_2' }]
-            },
-            kimmy_2: {
-                messages: [
-                    { sender: 'outgoing', text: "eh aku masih\ndikampus\nini otw jemput kamu", time: "5:40 PM" },
-                    { sender: 'incoming', text: "okeee\njangan lama lama lama yaaa\nkita jadi main kan?.", time: "5:43 PM" }
-                ],
-                choices: [{ text: "iyaa jadi, bentar yaaa, aku usahain secepat mungkin", next: 'kimmy_3' }]
-            },
-            kimmy_3: {
-                messages: [
-                    { sender: 'outgoing', text: "iyaa jadi\nbentar yaaa, aku usahain secepat mungkin,", time: "5:44 PM" },
-                    { sender: 'incoming', text: "okee jangan lama-lama ya! Hati-hati di jalan. ❤️", time: "5:45 PM" }
-                ],
-                choices: []
-            },
-            erine_1: {
-                messages: [{ sender: 'incoming', text: "P. besok selesai kelas, tungguin aku di parkiran belakang.", time: "19.40" }],
-                choices: [{ text: "siap, aku tungguin di sana.", next: 'erine_2' }]
-            },
-            erine_2: {
-                messages: [
-                    { sender: 'outgoing', text: "siap, aku tungguin di sana.", time: "19.41" },
-                    { sender: 'incoming', text: "bagus. jangan telat.", time: "19.42" }
-                ],
-                choices: []
-            },
-            ribka_1: {
-                messages: [{ sender: 'incoming', text: "Kamu beneran sayang nggak sih sama aku? Kok akhir-akhir ini sering ngilang?", time: "20.10" }],
-                choices: [{ text: "sayang banget kokk, cuma lagi sibuk tugas.", next: 'ribka_2' }]
-            },
-            ribka_2: {
-                messages: [
-                    { sender: 'outgoing', text: "sayang banget kokk, cuma lagi sibuk tugas.", time: "20.11" },
-                    { sender: 'incoming', text: "hati-hati ya kalau bohong...", time: "20.12" }
-                ],
-                choices: []
-            }
-        };
-
-        function openChat(characterKey) {
-            document.getElementById('chat-menu-view').style.display = "none";
-            document.getElementById('chat-room-view').style.display = "flex";
-            const char = chatData[characterKey];
-            document.getElementById('room-name').innerText = char.name;
-            document.getElementById('room-avatar').src = char.avatar;
-            loadScene(char.startScene);
-        }
-
-        function backToChatList() {
-            document.getElementById('chat-room-view').style.display = "none";
-            document.getElementById('chat-menu-view').style.display = "block";
-            document.getElementById('room-body').innerHTML = '';
-            document.getElementById('room-footer').innerHTML = '';
-        }
-
-        function loadScene(sceneKey) {
-            const storiesData = stories[sceneKey];
-            const roomBody = document.getElementById('room-body');
-            const roomFooter = document.getElementById('room-footer');
-            const roomStatus = document.getElementById('room-status');
-
-            roomFooter.innerHTML = '';
-            
-            let delayIndex = 0;
-            storiesData.messages.forEach((msg, index) => {
-                if (msg.sender === 'incoming') {
-                    // Tampilkan efek typing (.....) sebelum pesan masuk
-                    setTimeout(() => {
-                        roomStatus.innerText = "typing...";
-                        const typingDiv = document.createElement('div');
-                        typingDiv.classList.add('typing-bubble');
-                        typingDiv.id = 'temp-typing';
-                        typingDiv.innerHTML = '.....';
-                        roomBody.appendChild(typingDiv);
-                        roomBody.scrollTop = roomBody.scrollHeight;
-                    }, delayIndex);
-                    delayIndex += 800;
-                }
-
-                setTimeout(() => {
-                    // Hapus elemen typing jika ada
-                    const typingEl = document.getElementById('temp-typing');
-                    if (typingEl) typingEl.remove();
-                    roomStatus.innerText = "online";
-
-                    const bubble = document.createElement('div');
-                    bubble.classList.add('bubble', msg.sender);
-                    const checkmark = msg.sender === 'outgoing' ? '<span style="color:#53bdeb; margin-left:4px;">✓✓</span>' : '';
-                    bubble.innerHTML = `${msg.text.replace(/\n/g, '<br>')}<span class="time">${msg.time}${checkmark}</span>`;
-                    roomBody.appendChild(bubble);
-                    roomBody.scrollTop = roomBody.scrollHeight;
-                }, delayIndex);
-
-                delayIndex += 600;
-            });
-
-            // Tampilkan pilihan tombol balasan setelah pesan selesai muncul
-            setTimeout(() => {
-                storiesData.choices.forEach(choice => {
-                    const btn = document.createElement('button');
-                    btn.classList.add('choice-btn');
-                    btn.innerText = choice.text;
-                    btn.onclick = () => loadScene(choice.next);
-                    roomFooter.appendChild(btn);
-                });
-            }, delayIndex);
-        }
-    </script>
 </body>
 </html>
