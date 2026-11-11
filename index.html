@@ -50,7 +50,7 @@
     height: 28px;
     background: #000;
     border-radius: 20px;
-    z-index: 150;
+    z-index: 200;
   }
 
   /* Status Bar Atas */
@@ -63,12 +63,11 @@
     padding: 14px 28px 0 32px;
     color: #fff;
     font-weight: 600;
-    z-index: 100;
+    z-index: 150;
   }
   .time-status{ font-size: 14px; letter-spacing: 0.5px; }
   .right-icons{ display: flex; align-items: center; gap: 6px; font-size: 13px; }
   
-  /* Ikon Sinyal Warna Hijau Custom */
   .signal-green {
     color: #25D366;
     font-weight: bold;
@@ -86,45 +85,11 @@
   }
   .battery-fill{ width: 75%; height: 100%; background: #4cd137; border-radius: 1px; }
 
-  /* --- LAYAR LOCKSCREEN --- */
-  .lockscreen {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 20;
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-    cursor: pointer;
-  }
-  .lockscreen.unlock {
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
-  }
-  .lock-screen-content {
-    position: absolute; top: 90px; width: 100%; text-align: center; color: #fff;
-  }
-  .lock-time { font-size: 72px; font-weight: 300; line-height: 1; letter-spacing: -2px; }
-  .lock-date { font-size: 17px; font-weight: 500; margin-top: 6px; }
-
-  /* Kotak Notifikasi WhatsApp Lockscreen */
-  .lock-notification {
-    background: rgba(30, 30, 30, 0.75);
-    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-    border-radius: 20px; padding: 12px 16px; position: absolute; bottom: 80px; left: 50%;
-    transform: translateX(-50%); width: 90%; text-align: left;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #fff; display: flex; align-items: center; gap: 12px;
-  }
-  .lock-notification img {
-    width: 38px !important; height: 38px !important; border-radius: 50% !important;
-    object-fit: cover !important; flex-shrink: 0 !important;
-  }
-  .notif-text h4 { font-size: 12px; font-weight: 500; opacity: 0.8; margin-bottom: 2px; }
-  .notif-text p { font-size: 14px; font-weight: 400; }
-
-  /* --- LAYAR HOMESCREEN --- */
+  /* --- LAYAR HOMESCREEN (DI BELAKANG) --- */
   .homescreen {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
+    background: url('kim.jpeg') center/cover no-repeat;
     padding: 75px 20px 20px 20px;
     display: flex;
     flex-direction: column;
@@ -164,7 +129,113 @@
     grid-template-columns: repeat(4, 1fr); gap: 14px; justify-items: center;
     margin-bottom: 5px;
   }
-  
+
+  /* --- LAYAR LOCKSCREEN (MENUTUPI HOMESCREEN) --- */
+  .lockscreen {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('kim.jpeg') center/cover no-repeat;
+    z-index: 50;
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  }
+  .lockscreen.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .lock-screen-content {
+    position: absolute; top: 90px; width: 100%; text-align: center; color: #fff; cursor: pointer;
+  }
+  .lock-time { font-size: 72px; font-weight: 300; line-height: 1; letter-spacing: -2px; }
+  .lock-date { font-size: 17px; font-weight: 500; margin-top: 6px; }
+
+  .lock-notification {
+    background: rgba(30, 30, 30, 0.75);
+    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border-radius: 20px; padding: 12px 16px; position: absolute; bottom: 80px; left: 50%;
+    transform: translateX(-50%); width: 90%; text-align: left; cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff; display: flex; align-items: center; gap: 12px;
+  }
+  .lock-notification img {
+    width: 38px !important; height: 38px !important; border-radius: 50% !important;
+    object-fit: cover !important; flex-shrink: 0 !important;
+  }
+  .notif-text h4 { font-size: 12px; font-weight: 500; opacity: 0.8; margin-bottom: 2px; }
+  .notif-text p { font-size: 14px; font-weight: 400; }
+
+  /* --- LAYAR PASSCODE PIN (1012) --- */
+  .passcode-screen {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .passcode-screen.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .passcode-title {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+  }
+  .pin-dots {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .dot {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: transparent;
+    transition: background 0.2s;
+  }
+  .dot.filled {
+    background: #fff;
+  }
+  .keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 75px);
+    gap: 16px;
+  }
+  .key {
+    width: 75px;
+    height: 75px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: 400;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.1s;
+  }
+  .key:active {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  .cancel-pin {
+    margin-top: 25px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+  }
+
   .bg-wa { background: #25D366; }
   .bg-gallery { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%); }
   .bg-camera { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
@@ -183,7 +254,7 @@
     
     <div class="dynamic-island"></div>
 
-    <!-- Status Bar dengan Sinyal Warna Hijau -->
+    <!-- Status Bar -->
     <div class="status-bar">
       <div class="time-status" id="statusBarTime">00:00</div>
       <div class="right-icons">
@@ -193,23 +264,7 @@
       </div>
     </div>
 
-    <!-- Lockscreen -->
-    <div class="lockscreen" id="lockscreen" onclick="bukaHP()">
-      <div class="lock-screen-content">
-        <div class="lock-time" id="lockTime">09:00</div>
-        <div class="lock-date" id="lockDate">Kamis,11 November 2026</div>
-      </div>
-
-      <div class="lock-notification">
-        <img src=""WhatsApp Image 2024-10-08 at 15.26.38_2652ad27.jpg" alt="Kimmy">
-        <div class="notif-text">
-          <h4>WHATSAPP • 1m ago</h4>
-          <p>Kimmy: kamu dimana...</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Homescreen -->
+    <!-- HOMESCREEN -->
     <div class="homescreen">
       <div class="app-grid">
         <a href="wa.html" class="app-item">
@@ -262,12 +317,101 @@
       </div>
     </div>
 
+    <!-- LOCKSCREEN -->
+    <div class="lockscreen" id="lockscreen">
+      <div class="lock-screen-content" onclick="tampilkanPasscode()">
+        <div class="lock-time" id="lockTime">00:00</div>
+        <div class="lock-date" id="lockDate">Senin, 1 Januari</div>
+      </div>
+
+      <div class="lock-notification" onclick="tampilkanPasscode()">
+        <img src="Whatsapp Image 2024-10-08 at 15.26.38_2652ad27.jpg" alt="Profile">
+        <div class="notif-text">
+          <h4>WHATSAPP • 1m ago</h4>
+          <p>Kimmy: kamu dimana...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAYAR PASSCODE PIN (1012) -->
+    <div class="passcode-screen" id="passcodeScreen">
+      <div class="passcode-title">Masukkan Kata Sandi</div>
+      <div class="pin-dots">
+        <div class="dot" id="dot1"></div>
+        <div class="dot" id="dot2"></div>
+        <div class="dot" id="dot3"></div>
+        <div class="dot" id="dot4"></div>
+      </div>
+      <div class="keypad">
+        <div class="key" onclick="tambahAngka('1')">1</div>
+        <div class="key" onclick="tambahAngka('2')">2</div>
+        <div class="key" onclick="tambahAngka('3')">3</div>
+        <div class="key" onclick="tambahAngka('4')">4</div>
+        <div class="key" onclick="tambahAngka('5')">5</div>
+        <div class="key" onclick="tambahAngka('6')">6</div>
+        <div class="key" onclick="tambahAngka('7')">7</div>
+        <div class="key" onclick="tambahAngka('8')">8</div>
+        <div class="key" onclick="tambahAngka('9')">9</div>
+        <div></div>
+        <div class="key" onclick="tambahAngka('0')">0</div>
+        <div class="key" onclick="hapusAngka()">⌫</div>
+      </div>
+      <div class="cancel-pin" onclick="tutupPasscode()">Batal</div>
+    </div>
+
   </div>
 </div>
 
 <script>
-  function bukaHP() {
-    document.getElementById('lockscreen').classList.add('unlock');
+  let enteredPin = "";
+  const correctPin = "1012";
+
+  function tampilkanPasscode() {
+    document.getElementById('passcodeScreen').classList.add('active');
+  }
+
+  function tutupPasscode() {
+    enteredPin = "";
+    updateDots();
+    document.getElementById('passcodeScreen').classList.remove('active');
+  }
+
+  function tambahAngka(angka) {
+    if (enteredPin.length < 4) {
+      enteredPin += angka;
+      updateDots();
+      
+      if (enteredPin.length === 4) {
+        setTimeout(() => {
+          if (enteredPin === correctPin) {
+            document.getElementById('passcodeScreen').classList.remove('active');
+            document.getElementById('lockscreen').classList.add('hidden');
+            enteredPin = "";
+            updateDots();
+          } else {
+            alert("Kata sandi salah! (PIN: 1012)");
+            enteredPin = "";
+            updateDots();
+          }
+        }, 150);
+      }
+    }
+  }
+
+  function hapusAngka() {
+    enteredPin = enteredPin.slice(0, -1);
+    updateDots();
+  }
+
+  function updateDots() {
+    for (let i = 1; i <= 4; i++) {
+      let dotEl = document.getElementById('dot' + i);
+      if (i <= enteredPin.length) {
+        dotEl.classList.add('filled');
+      } else {
+        dotEl.classList.remove('filled');
+      }
+    }
   }
 
   function updateWaktuDanTanggal(){
@@ -294,4 +438,3 @@
 
 </body>
 </html>
-
