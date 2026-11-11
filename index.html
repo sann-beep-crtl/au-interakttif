@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alternate Universe</title>
+<title>Alternate Universe - Cinta Segitiga</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   body{
@@ -36,8 +36,8 @@
     height: 100%;
     position: relative;
     border-radius: 40px;
-    background: url('kim.jpeg') center/cover no-repeat;
     overflow: hidden;
+    background: #000;
   }
 
   /* DYNAMIC ISLAND */
@@ -50,7 +50,7 @@
     height: 28px;
     background: #000;
     border-radius: 20px;
-    z-index: 200;
+    z-index: 300;
   }
 
   /* Status Bar Atas */
@@ -63,7 +63,7 @@
     padding: 14px 28px 0 32px;
     color: #fff;
     font-weight: 600;
-    z-index: 150;
+    z-index: 250;
   }
   .time-status{ font-size: 14px; letter-spacing: 0.5px; }
   .right-icons{ display: flex; align-items: center; gap: 6px; font-size: 13px; }
@@ -85,63 +85,21 @@
   }
   .battery-fill{ width: 75%; height: 100%; background: #4cd137; border-radius: 1px; }
 
-  /* --- LAYAR HOMESCREEN (Wallpaper kimiii.jpeg) --- */
-  .homescreen {
+  /* SISTEM LAYAR (Menggunakan Tampilan Dinamis dalam 1 File) */
+  .screen-layer {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: url('kimiii.jpeg') center/cover no-repeat;
-    padding: 75px 20px 20px 20px;
-    display: flex;
+    display: none;
     flex-direction: column;
-    justify-content: space-between;
-    z-index: 10;
   }
-  
-  .app-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px 14px;
-    justify-items: center;
-  }
-  .app-item {
+  .screen-layer.active {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: transform 0.1s ease;
-  }
-  .app-item:active { transform: scale(0.9); }
-  .app-icon {
-    width: 58px; height: 58px;
-    border-radius: 14px; display: flex; justify-content: center; align-items: center;
-    font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); color: #fff;
-  }
-  .app-name {
-    color: #fff; font-size: 11px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.8);
   }
 
-  .dock {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-    border-radius: 30px; padding: 12px 14px; display: grid;
-    grid-template-columns: repeat(4, 1fr); gap: 14px; justify-items: center;
-    margin-bottom: 5px;
-  }
-
-  /* --- LAYAR LOCKSCREEN (Wallpaper kim.jpeg) --- */
-  .lockscreen {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+  /* 1. LOCKSCREEN */
+  #lockscreenLayer {
     background: url('kim.jpeg') center/cover no-repeat;
-    z-index: 50;
-    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
-  }
-  .lockscreen.hidden {
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
+    z-index: 100;
   }
   .lock-screen-content {
     position: absolute; top: 90px; width: 100%; text-align: center; color: #fff; cursor: pointer;
@@ -164,78 +122,102 @@
   .notif-text h4 { font-size: 12px; font-weight: 500; opacity: 0.8; margin-bottom: 2px; }
   .notif-text p { font-size: 14px; font-weight: 400; }
 
-  /* --- LAYAR PASSCODE PIN (1012) --- */
-  .passcode-screen {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+  /* 2. PASSCODE PIN (1012) */
+  #passcodeLayer {
     background: rgba(20, 20, 20, 0.85);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
+    z-index: 200;
     align-items: center;
     justify-content: center;
     color: #fff;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
   }
-  .passcode-screen.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .passcode-title {
-    font-size: 18px;
-    font-weight: 400;
-    margin-bottom: 24px;
-    letter-spacing: 0.5px;
-  }
-  .pin-dots {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 40px;
-  }
-  .dot {
-    width: 14px;
-    height: 14px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    background: transparent;
-    transition: background 0.2s;
-  }
-  .dot.filled {
-    background: #fff;
-  }
-  .keypad {
-    display: grid;
-    grid-template-columns: repeat(3, 75px);
-    gap: 16px;
-  }
+  .passcode-title { font-size: 18px; font-weight: 400; margin-bottom: 24px; letter-spacing: 0.5px; }
+  .pin-dots { display: flex; gap: 16px; margin-bottom: 40px; }
+  .dot { width: 14px; height: 14px; border: 2px solid #fff; border-radius: 50%; background: transparent; transition: background 0.2s; }
+  .dot.filled { background: #fff; }
+  .keypad { display: grid; grid-template-columns: repeat(3, 75px); gap: 16px; }
   .key {
-    width: 75px;
-    height: 75px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 26px;
-    font-weight: 400;
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.1s;
+    width: 75px; height: 75px; background: rgba(255, 255, 255, 0.1); border-radius: 50%;
+    display: flex; justify-content: center; align-items: center; font-size: 26px; font-weight: 400;
+    cursor: pointer; user-select: none; transition: background 0.1s;
   }
-  .key:active {
-    background: rgba(255, 255, 255, 0.3);
+  .key:active { background: rgba(255, 255, 255, 0.3); }
+  .cancel-pin { margin-top: 25px; font-size: 14px; color: rgba(255, 255, 255, 0.7); cursor: pointer; }
+
+  /* 3. HOMESCREEN */
+  #homescreenLayer {
+    background: url('kimiii.jpeg') center/cover no-repeat;
+    padding: 75px 20px 20px 20px;
+    justify-content: space-between;
+    z-index: 50;
   }
-  .cancel-pin {
-    margin-top: 25px;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
+  .app-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px 14px; justify-items: center;
+  }
+  .app-item {
+    display: flex; flex-direction: column; align-items: center; gap: 5px; text-decoration: none; cursor: pointer; transition: transform 0.1s ease;
+  }
+  .app-item:active { transform: scale(0.9); }
+  .app-icon {
+    width: 58px; height: 58px; border-radius: 14px; display: flex; justify-content: center; align-items: center;
+    font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); color: #fff; position: relative;
+  }
+  .badge {
+    position: absolute; top: -4px; right: -4px; background: #ff3b30; color: #fff;
+    font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 10px; border: 2px solid #fff;
+  }
+  .app-name { color: #fff; font-size: 11px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+  .dock {
+    background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+    border-radius: 30px; padding: 12px 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; justify-items: center; margin-bottom: 5px;
   }
 
+  /* 4. WHATSAPP LIST & CHAT ROOMS */
+  .wa-container {
+    background: #111b21; color: #e9edef; z-index: 60; padding-top: 50px; display: flex; flex-direction: column; height: 100%;
+  }
+  .wa-header {
+    padding: 12px 16px; background: #202c33; font-size: 20px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;
+  }
+  .chat-list { flex: 1; overflow-y: auto; }
+  .chat-item {
+    display: flex; align-items: center; gap: 12px; padding: 12px 16px; text-decoration: none; color: inherit; border-bottom: 1px solid #222d34;
+  }
+  .chat-item:active { background: #202c33; }
+  .chat-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+  .chat-info { flex: 1; }
+  .chat-name-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+  .chat-name { font-weight: 600; font-size: 15px; color: #f3f3f3; }
+  .chat-time { font-size: 12px; color: #8696a0; }
+  .chat-msg { font-size: 13px; color: #8696a0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+  .badge-chat { background: #00a884; color: #111b21; font-size: 11px; font-weight: bold; padding: 2px 6px; border-radius: 50%; }
+
+  /* RUANG CHAT SPESIFIK */
+  .chat-room {
+    background: #0b141a; color: #e9edef; z-index: 70; padding-top: 45px; display: flex; flex-direction: column; height: 100%;
+  }
+  .room-header {
+    padding: 10px 12px; background: #202c33; display: flex; align-items: center; gap: 10px;
+  }
+  .room-header img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+  .room-info h3 { font-size: 15px; color: #f3f3f3; }
+  .room-info p { font-size: 11px; color: #8696a0; }
+  .chat-body {
+    flex: 1; padding: 16px; overflow-y: auto;
+    background: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png') repeat;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .bubble {
+    max-width: 80%; padding: 8px 12px; border-radius: 8px; font-size: 13px; position: relative; line-height: 1.4;
+  }
+  .incoming { background: #202c33; align-self: flex-start; color: #e9edef; }
+  .outgoing { background: #005c4b; align-self: flex-end; color: #e9edef; }
+  .time { font-size: 9px; color: #8696a0; float: right; margin-left: 8px; margin-top: 4px; }
+  .room-footer { padding: 10px; background: #202c33; text-align: center; }
+  .room-footer a { color: #00a884; text-decoration: none; font-size: 13px; font-weight: 600; }
+
+  /* Warna Aplikasi Bawaan */
   .bg-wa { background: #25D366; }
   .bg-gallery { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%); }
   .bg-camera { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
@@ -264,68 +246,15 @@
       </div>
     </div>
 
-    <!-- HOMESCREEN (Aplikasi Bisa Diklik Menuju Halaman Lain) -->
-    <div class="homescreen">
-      <div class="app-grid">
-        <a href="wa.html" class="app-item">
-          <div class="app-icon bg-wa">💬</div>
-          <span class="app-name">WhatsApp</span>
-        </a>
-        <a href="galeri.html" class="app-item">
-          <div class="app-icon bg-gallery">🖼️</div>
-          <span class="app-name">Galeri</span>
-        </a>
-        <a href="https://instagram.com" target="_blank" class="app-item">
-          <div class="app-icon bg-instagram">📸</div>
-          <span class="app-name">Instagram</span>
-        </a>
-        <a href="https://spotify.com" target="_blank" class="app-item">
-          <div class="app-icon bg-spotify">🎵</div>
-          <span class="app-name">Spotify</span>
-        </a>
-        <a href="catatan.html" class="app-item">
-          <div class="app-icon bg-notes">📝</div>
-          <span class="app-name">Catatan</span>
-        </a>
-        <a href="pengaturan.html" class="app-item">
-          <div class="app-icon bg-settings">⚙️</div>
-          <span class="app-name">Pengaturan</span>
-        </a>
-        <a href="kamera.html" class="app-item">
-          <div class="app-icon bg-camera">📷</div>
-          <span class="app-name">Kamera</span>
-        </a>
-        <a href="https://google.com" target="_blank" class="app-item">
-          <div class="app-icon bg-safari">🌐</div>
-          <span class="app-name">Safari</span>
-        </a>
-      </div>
-
-      <div class="dock">
-        <a href="telepon.html" class="app-item">
-          <div class="app-icon bg-phone">📞</div>
-        </a>
-        <a href="https://google.com" target="_blank" class="app-item">
-          <div class="app-icon bg-safari">🌐</div>
-        </a>
-        <a href="wa.html" class="app-item">
-          <div class="app-icon bg-wa">💬</div>
-        </a>
-        <a href="https://spotify.com" target="_blank" class="app-item">
-          <div class="app-icon bg-spotify">🎵</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- LOCKSCREEN -->
-    <div class="lockscreen" id="lockscreen">
-      <div class="lock-screen-content" onclick="tampilkanPasscode()">
+    <!-- 1. LOCKSCREEN LAYER -->
+    <div class="screen-layer active" id="lockscreenLayer">
+      <div class="lock-screen-content" onclick="bukaPasscode()">
         <div class="lock-time" id="lockTime">00:00</div>
         <div class="lock-date" id="lockDate">Senin, 1 Januari</div>
       </div>
 
-      <div class="lock-notification" onclick="tampilkanPasscode()">
-        <img src="kimberly.jpeg" alt="Profile">
+      <div class="lock-notification" onclick="bukaPasscode()">
+        <img src="kimberly.jpeg" alt="Kimmy">
         <div class="notif-text">
           <h4>WHATSAPP • 1m ago</h4>
           <p>Kimmy: kamu dimana...</p>
@@ -333,8 +262,8 @@
       </div>
     </div>
 
-    <!-- LAYAR PASSCODE PIN (1012) -->
-    <div class="passcode-screen" id="passcodeScreen">
+    <!-- 2. PASSCODE PIN LAYER (PIN: 1012) -->
+    <div class="screen-layer" id="passcodeLayer">
       <div class="passcode-title">Masukkan Kata Sandi</div>
       <div class="pin-dots">
         <div class="dot" id="dot1"></div>
@@ -359,6 +288,135 @@
       <div class="cancel-pin" onclick="tutupPasscode()">Batal</div>
     </div>
 
+    <!-- 3. HOMESCREEN LAYER -->
+    <div class="screen-layer" id="homescreenLayer">
+      <div class="app-grid">
+        <a onclick="gantiLayar('waListLayer')" class="app-item">
+          <div class="app-icon bg-wa">💬<span class="badge">3</span></div>
+          <span class="app-name">WhatsApp</span>
+        </a>
+        <a href="#" class="app-item">
+          <div class="app-icon bg-gallery">🖼️</div>
+          <span class="app-name">Galeri</span>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="app-item">
+          <div class="app-icon bg-instagram">📸</div>
+          <span class="app-name">Instagram</span>
+        </a>
+        <a href="https://spotify.com" target="_blank" class="app-item">
+          <div class="app-icon bg-spotify">🎵</div>
+          <span class="app-name">Spotify</span>
+        </a>
+        <a href="#" class="app-item">
+          <div class="app-icon bg-notes">📝</div>
+          <span class="app-name">Catatan</span>
+        </a>
+        <a href="#" class="app-item">
+          <div class="app-icon bg-settings">⚙️</div>
+          <span class="app-name">Pengaturan</span>
+        </a>
+        <a href="#" class="app-item">
+          <div class="app-icon bg-camera">📷</div>
+          <span class="app-name">Kamera</span>
+        </a>
+        <a href="https://google.com" target="_blank" class="app-item">
+          <div class="app-icon bg-safari">🌐</div>
+          <span class="app-name">Safari</span>
+        </a>
+      </div>
+
+      <div class="dock">
+        <a href="#" class="app-item"><div class="app-icon bg-phone">📞</div></a>
+        <a href="https://google.com" target="_blank" class="app-item"><div class="app-icon bg-safari">🌐</div></a>
+        <a onclick="gantiLayar('waListLayer')" class="app-item"><div class="app-icon bg-wa">💬</div></a>
+        <a href="https://spotify.com" target="_blank" class="app-item"><div class="app-icon bg-spotify">🎵</div></a>
+      </div>
+    </div>
+
+    <!-- 4. WHATSAPP CHAT LIST LAYER -->
+    <div class="screen-layer wa-container" id="waListLayer">
+      <div class="wa-header"><span>WhatsApp</span></div>
+      <div class="chat-list">
+        <!-- Kimmy (Pacar) -->
+        <a onclick="gantiLayar('chatKimmy')" class="chat-item">
+          <img src="kimberly.jpeg" class="chat-avatar" alt="Kimmy">
+          <div class="chat-info">
+            <div class="chat-name-row"><span class="chat-name">Kimmy ❤️ (Pacar)</span><span class="chat-time">09.05</span></div>
+            <div class="chat-msg">pfft kebiasaan, hati hati gausah ngebut</div>
+          </div>
+          <span class="badge-chat">1</span>
+        </a>
+        <!-- Erine -->
+        <a onclick="gantiLayar('chatErine')" class="chat-item">
+          <img src="kim.jpeg" class="chat-avatar" alt="Erine">
+          <div class="chat-info">
+            <div class="chat-name-row"><span class="chat-name">Erine ✨</span><span class="chat-time">19.06</span></div>
+            <div class="chat-msg">okee</div>
+          </div>
+          <span class="badge-chat">1</span>
+        </a>
+        <!-- Ribka -->
+        <a onclick="gantiLayar('chatRibka')" class="chat-item">
+          <img src="kimiii.jpeg" class="chat-avatar" alt="Ribka">
+          <div class="chat-info">
+            <div class="chat-name-row"><span class="chat-name">Ribka 🥀</span><span class="chat-time">15.34</span></div>
+            <div class="chat-msg">iya gapapa, salam buat mama</div>
+          </div>
+        </a>
+      </div>
+      <div class="room-footer"><a onclick="gantiLayar('homescreenLayer')">‹ Kembali ke Homescreen</a></div>
+    </div>
+
+    <!-- 5. RUANG CHAT KIMMY -->
+    <div class="screen-layer chat-room" id="chatKimmy">
+      <div class="room-header">
+        <a onclick="gantiLayar('waListLayer')" style="color:#fff; text-decoration:none; font-size:20px;">‹</a>
+        <img src="kimberly.jpeg" alt="Kimmy">
+        <div class="room-info"><h3>Kimmy ❤️</h3><p>online</p></div>
+      </div>
+      <div class="chat-body">
+        <div class="bubble incoming">kamu dimana<span class="time">09.00</span></div>
+        <div class="bubble incoming">katanya mau main, aku udah nunggu lama loh<span class="time">09.01</span></div>
+        <div class="bubble outgoing">aduh maaf, aku ketiduran, ini aku otw kerumah kamu yaa<span class="time">09.04</span></div>
+        <div class="bubble incoming">pfft kebiasaan, hati hati gausah ngebut<span class="time">09.05</span></div>
+      </div>
+      <div class="room-footer"><a onclick="gantiLayar('waListLayer')">‹ Kembali ke Daftar Chat</a></div>
+    </div>
+
+    <!-- 6. RUANG CHAT ERINE -->
+    <div class="screen-layer chat-room" id="chatErine">
+      <div class="room-header">
+        <a onclick="gantiLayar('waListLayer')" style="color:#fff; text-decoration:none; font-size:20px;">‹</a>
+        <img src="kim.jpeg" alt="Erine">
+        <div class="room-info"><h3>Erine ✨</h3><p>terakhir dilihat kemarin</p></div>
+      </div>
+      <div class="chat-body">
+        <div class="bubble incoming">nanti malam jadi kan kita keluar?<span class="time">19.00</span></div>
+        <div class="bubble incoming">jangan telat loh yaa<span class="time">19.01</span></div>
+        <div class="bubble outgoing">iya jadi, nanti aku jemput ya<span class="time">19.05</span></div>
+        <div class="bubble incoming">okee<span class="time">19.06</span></div>
+      </div>
+      <div class="room-footer"><a onclick="gantiLayar('waListLayer')">‹ Kembali ke Daftar Chat</a></div>
+    </div>
+
+    <!-- 7. RUANG CHAT RIBKA -->
+    <div class="screen-layer chat-room" id="chatRibka">
+      <div class="room-header">
+        <a onclick="gantiLayar('waListLayer')" style="color:#fff; text-decoration:none; font-size:20px;">‹</a>
+        <img src="kimiii.jpeg" alt="Ribka">
+        <div class="room-info"><h3>Ribka 🥀</h3><p>online</p></div>
+      </div>
+      <div class="chat-body">
+        <div class="bubble incoming">kakkkk, kenapa aku di tinggal :(((<span class="time">15.30</span></div>
+        <div class="bubble incoming">kamu keliatan kayak buru buru gitu, mau kemana sih sampe ninggalin aku<span class="time">15.30</span></div>
+        <div class="bubble outgoing">ehh, maaf tadi mama aku nelpon, ini lagi nemenin mama keluar<span class="time">15.32</span></div>
+        <div class="bubble incoming">pantess, yaudah dehh aku naik ojol aja<span class="time">15.33</span></div>
+        <div class="bubble outgoing">maaf yaa<span class="time">15.33</span></div>
+        <div class="bubble incoming">iya gapapa, salam buat mama<span class="time">15.34</span></div>
+      </div>
+      <div class="room-footer"><a onclick="gantiLayar('waListLayer')">‹ Kembali ke Daftar Chat</a></div>
+    </div>
+
   </div>
 </div>
 
@@ -366,14 +424,19 @@
   let enteredPin = "";
   const correctPin = "1012";
 
-  function tampilkanPasscode() {
-    document.getElementById('passcodeScreen').classList.add('active');
+  function gantiLayar(layerId) {
+    document.querySelectorAll('.screen-layer').forEach(el => el.classList.remove('active'));
+    document.getElementById(layerId).classList.add('active');
+  }
+
+  function bukaPasscode() {
+    document.getElementById('passcodeLayer').classList.add('active');
   }
 
   function tutupPasscode() {
     enteredPin = "";
     updateDots();
-    document.getElementById('passcodeScreen').classList.remove('active');
+    document.getElementById('passcodeLayer').classList.remove('active');
   }
 
   function tambahAngka(angka) {
@@ -384,8 +447,9 @@
       if (enteredPin.length === 4) {
         setTimeout(() => {
           if (enteredPin === correctPin) {
-            document.getElementById('passcodeScreen').classList.remove('active');
-            document.getElementById('lockscreen').classList.add('hidden');
+            document.getElementById('passcodeLayer').classList.remove('active');
+            document.getElementById('lockscreenLayer').classList.remove('active');
+            document.getElementById('homescreenLayer').classList.add('active');
             enteredPin = "";
             updateDots();
           } else {
