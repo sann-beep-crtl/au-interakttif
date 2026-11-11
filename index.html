@@ -53,6 +53,20 @@
     z-index: 300;
   }
 
+  /* GARIS GESTURE NAVIGASI BAWAH */
+  .home-indicator {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 130px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    z-index: 400;
+    pointer-events: none;
+  }
+
   /* Status Bar Atas */
   .status-bar{
     position: absolute;
@@ -85,7 +99,7 @@
   }
   .battery-fill{ width: 75%; height: 100%; background: #4cd137; border-radius: 1px; }
 
-  /* SISTEM LAYAR (Menggunakan Tampilan Dinamis dalam 1 File) */
+  /* SISTEM LAYAR */
   .screen-layer {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -96,7 +110,7 @@
     display: flex;
   }
 
-  /* 1. LOCKSCREEN */
+  /* 1. LOCKSCREEN (Hanya ini yang 'active' saat pertama kali dibuka) */
   #lockscreenLayer {
     background: url('kim.jpeg') center/cover no-repeat;
     z-index: 100;
@@ -173,7 +187,7 @@
     border-radius: 30px; padding: 12px 14px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; justify-items: center; margin-bottom: 5px;
   }
 
-  /* 4. WHATSAPP LIST & CHAT ROOMS */
+  /* 4. WHATSAPP CHAT LIST */
   .wa-container {
     background: #111b21; color: #e9edef; z-index: 60; padding-top: 50px; display: flex; flex-direction: column; height: 100%;
   }
@@ -193,7 +207,7 @@
   .chat-msg { font-size: 13px; color: #8696a0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
   .badge-chat { background: #00a884; color: #111b21; font-size: 11px; font-weight: bold; padding: 2px 6px; border-radius: 50%; }
 
-  /* RUANG CHAT SPESIFIK */
+  /* 5. RUANG CHAT */
   .chat-room {
     background: #0b141a; color: #e9edef; z-index: 70; padding-top: 45px; display: flex; flex-direction: column; height: 100%;
   }
@@ -217,7 +231,7 @@
   .room-footer { padding: 10px; background: #202c33; text-align: center; }
   .room-footer a { color: #00a884; text-decoration: none; font-size: 13px; font-weight: 600; }
 
-  /* Warna Aplikasi Bawaan */
+  /* Warna Aplikasi */
   .bg-wa { background: #25D366; }
   .bg-gallery { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%); }
   .bg-camera { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
@@ -235,6 +249,7 @@
   <div class="phone">
     
     <div class="dynamic-island"></div>
+    <div class="home-indicator"></div>
 
     <!-- Status Bar -->
     <div class="status-bar">
@@ -246,7 +261,7 @@
       </div>
     </div>
 
-    <!-- 1. LOCKSCREEN LAYER -->
+    <!-- 1. LOCKSCREEN (Hanya ini yang aktif di awal) -->
     <div class="screen-layer active" id="lockscreenLayer">
       <div class="lock-screen-content" onclick="bukaPasscode()">
         <div class="lock-time" id="lockTime">00:00</div>
@@ -262,7 +277,7 @@
       </div>
     </div>
 
-    <!-- 2. PASSCODE PIN LAYER (PIN: 1012) -->
+    <!-- 2. PASSCODE PIN (1012) -->
     <div class="screen-layer" id="passcodeLayer">
       <div class="passcode-title">Masukkan Kata Sandi</div>
       <div class="pin-dots">
@@ -288,7 +303,7 @@
       <div class="cancel-pin" onclick="tutupPasscode()">Batal</div>
     </div>
 
-    <!-- 3. HOMESCREEN LAYER -->
+    <!-- 3. HOMESCREEN -->
     <div class="screen-layer" id="homescreenLayer">
       <div class="app-grid">
         <a onclick="gantiLayar('waListLayer')" class="app-item">
@@ -333,11 +348,10 @@
       </div>
     </div>
 
-    <!-- 4. WHATSAPP CHAT LIST LAYER -->
+    <!-- 4. WHATSAPP LIST -->
     <div class="screen-layer wa-container" id="waListLayer">
       <div class="wa-header"><span>WhatsApp</span></div>
       <div class="chat-list">
-        <!-- Kimmy (Pacar) -->
         <a onclick="gantiLayar('chatKimmy')" class="chat-item">
           <img src="kimberly.jpeg" class="chat-avatar" alt="Kimmy">
           <div class="chat-info">
@@ -346,7 +360,6 @@
           </div>
           <span class="badge-chat">1</span>
         </a>
-        <!-- Erine -->
         <a onclick="gantiLayar('chatErine')" class="chat-item">
           <img src="kim.jpeg" class="chat-avatar" alt="Erine">
           <div class="chat-info">
@@ -355,7 +368,6 @@
           </div>
           <span class="badge-chat">1</span>
         </a>
-        <!-- Ribka -->
         <a onclick="gantiLayar('chatRibka')" class="chat-item">
           <img src="kimiii.jpeg" class="chat-avatar" alt="Ribka">
           <div class="chat-info">
@@ -367,7 +379,7 @@
       <div class="room-footer"><a onclick="gantiLayar('homescreenLayer')">‹ Kembali ke Homescreen</a></div>
     </div>
 
-    <!-- 5. RUANG CHAT KIMMY -->
+    <!-- 5. CHAT KIMMY -->
     <div class="screen-layer chat-room" id="chatKimmy">
       <div class="room-header">
         <a onclick="gantiLayar('waListLayer')" style="color:#fff; text-decoration:none; font-size:20px;">‹</a>
@@ -383,7 +395,7 @@
       <div class="room-footer"><a onclick="gantiLayar('waListLayer')">‹ Kembali ke Daftar Chat</a></div>
     </div>
 
-    <!-- 6. RUANG CHAT ERINE -->
+    <!-- 6. CHAT ERINE -->
     <div class="screen-layer chat-room" id="chatErine">
       <div class="room-header">
         <a onclick="gantiLayar('waListLayer')" style="color:#fff; text-decoration:none; font-size:20px;">‹</a>
@@ -399,7 +411,7 @@
       <div class="room-footer"><a onclick="gantiLayar('waListLayer')">‹ Kembali ke Daftar Chat</a></div>
     </div>
 
-    <!-- 7. RUANG CHAT RIBKA -->
+    <!-- 7. CHAT RIBKA -->
     <div class="screen-layer chat-room" id="chatRibka">
       <div class="room-header">
         <a onclick="gantiLayar('waListLayer')" style="color:#fff; text-decoration:none; font-size:20px;">‹</a>
