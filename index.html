@@ -85,11 +85,11 @@
   }
   .battery-fill{ width: 75%; height: 100%; background: #4cd137; border-radius: 1px; }
 
-  /* --- LAYAR HOMESCREEN (DI BELAKANG) --- */
+  /* --- LAYAR HOMESCREEN --- */
   .homescreen {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: url('kim.jpeg') center/cover no-repeat;
+    background: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1080&auto=format&fit=crop') center/cover no-repeat;
     padding: 75px 20px 20px 20px;
     display: flex;
     flex-direction: column;
@@ -130,7 +130,7 @@
     margin-bottom: 5px;
   }
 
-  /* --- LAYAR LOCKSCREEN (MENUTUPI HOMESCREEN) --- */
+  /* --- LAYAR LOCKSCREEN --- */
   .lockscreen {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -158,8 +158,8 @@
     color: #fff; display: flex; align-items: center; gap: 12px;
   }
   .lock-notification img {
-    width: 38px !important; height: 38px !important; border-radius: 50% !important;
-    object-fit: cover !important; flex-shrink: 0 !important;
+    width: 38px !important; height: 38px !important; min-width: 38px !important; min-height: 38px !important;
+    border-radius: 50% !important; object-fit: cover !important; flex-shrink: 0 !important;
   }
   .notif-text h4 { font-size: 12px; font-weight: 500; opacity: 0.8; margin-bottom: 2px; }
   .notif-text p { font-size: 14px; font-weight: 400; }
@@ -406,10 +406,12 @@
   function updateDots() {
     for (let i = 1; i <= 4; i++) {
       let dotEl = document.getElementById('dot' + i);
-      if (i <= enteredPin.length) {
-        dotEl.classList.add('filled');
-      } else {
-        dotEl.classList.remove('filled');
+      if (dotEl) {
+        if (i <= enteredPin.length) {
+          dotEl.classList.add('filled');
+        } else {
+          dotEl.classList.remove('filled');
+        }
       }
     }
   }
