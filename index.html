@@ -7,25 +7,53 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   body{
-    background:#000;
+    background:#121212;
     font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", Helvetica, Arial, sans-serif;
-    height:100vh;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-  }
-  .phone{
-    width:100%;
-    max-width:430px;
-    height:100vh;
-    max-height:880px;
-    position:relative;
-    background:url('kim.jpeg') center/cover no-repeat;
-    overflow:hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    padding: 20px 0;
   }
 
-  /* Status Bar Atas ala iPhone */
+  /* BINGKAI FISIK IPHONE */
+  .phone-frame {
+    position: relative;
+    width: 390px;
+    height: 800px;
+    background: #000;
+    border-radius: 50px;
+    padding: 12px;
+    box-shadow: 
+      0 0 0 4px #2c2c2e,
+      0 0 0 7px #1c1c1e,
+      0 20px 50px rgba(0, 0, 0, 0.8);
+  }
+
+  /* LAYAR HP */
+  .phone{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 40px;
+    background: url('kim.jpeg') center/cover no-repeat;
+    overflow: hidden;
+  }
+
+  /* DYNAMIC ISLAND */
+  .dynamic-island {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 28px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 150;
+  }
+
+  /* Status Bar Atas */
   .status-bar{
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -37,159 +65,233 @@
     font-weight: 600;
     z-index: 100;
   }
-  .time-status{
-    font-size: 15px;
-    letter-spacing: 0.5px;
+  .time-status{ font-size: 14px; letter-spacing: 0.5px; }
+  .right-icons{ display: flex; align-items: center; gap: 6px; font-size: 13px; }
+  
+  /* Ikon Sinyal Warna Hijau Custom */
+  .signal-green {
+    color: #25D366;
+    font-weight: bold;
+    filter: drop-shadow(0 0 2px rgba(37, 211, 102, 0.4));
   }
-  .right-icons{
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-  }
+
   .battery{
-    width: 24px;
-    height: 11px;
+    width: 22px; height: 11px;
     border: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 3px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 1.5px;
+    border-radius: 3px; position: relative; display: flex; align-items: center; padding: 1.5px;
   }
   .battery::after{
-    content: "";
-    position: absolute;
-    right: -3px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1.5px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 0 1px 1px 0;
+    content: ""; position: absolute; right: -3px; top: 50%; transform: translateY(-50%);
+    width: 1.5px; height: 4px; background: rgba(255, 255, 255, 0.8); border-radius: 0 1px 1px 0;
   }
-  .battery-fill{
-    width: 75%;
-    height: 100%;
-    background: #fff;
-    border-radius: 1px;
-  }
+  .battery-fill{ width: 75%; height: 100%; background: #4cd137; border-radius: 1px; }
 
-  /* Tampilan Jam Lockscreen Tengah */
+  /* --- LAYAR LOCKSCREEN --- */
+  .lockscreen {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 20;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    cursor: pointer;
+  }
+  .lockscreen.unlock {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
   .lock-screen-content {
-    position: absolute;
-    top: 90px;
-    width: 100%;
-    text-align: center;
-    color: #fff;
-    z-index: 10;
+    position: absolute; top: 90px; width: 100%; text-align: center; color: #fff;
   }
-  .lock-time {
-    font-size: 76px;
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -2px;
-  }
-  .lock-date {
-    font-size: 18px;
-    font-weight: 500;
-    margin-top: 6px;
-  }
+  .lock-time { font-size: 72px; font-weight: 300; line-height: 1; letter-spacing: -2px; }
+  .lock-date { font-size: 17px; font-weight: 500; margin-top: 6px; }
 
-  /* Kotak Notifikasi WhatsApp Lockscreen (Dijamin Rapi & Ikon Kecil) */
+  /* Kotak Notifikasi WhatsApp Lockscreen */
   .lock-notification {
     background: rgba(30, 30, 30, 0.75);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border-radius: 20px;
-    padding: 12px 16px;
-    position: absolute;
-    bottom: 90px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 380px;
-    text-align: left;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #fff;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border-radius: 20px; padding: 12px 16px; position: absolute; bottom: 80px; left: 50%;
+    transform: translateX(-50%); width: 90%; text-align: left;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff; display: flex; align-items: center; gap: 12px;
   }
-  
-  /* PENTING: Pengaman ukuran foto agar tidak jadi raksasa */
   .lock-notification img {
-    width: 38px !important;
-    height: 38px !important;
-    min-width: 38px !important;
-    min-height: 38px !important;
-    max-width: 38px !important;
-    max-height: 38px !important;
-    border-radius: 50% !important;
-    object-fit: cover !important;
-    flex-shrink: 0 !important;
+    width: 38px !important; height: 38px !important; border-radius: 50% !important;
+    object-fit: cover !important; flex-shrink: 0 !important;
+  }
+  .notif-text h4 { font-size: 12px; font-weight: 500; opacity: 0.8; margin-bottom: 2px; }
+  .notif-text p { font-size: 14px; font-weight: 400; }
+
+  /* --- LAYAR HOMESCREEN --- */
+  .homescreen {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    padding: 75px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 10;
   }
   
-  .notif-text h4 {
-    font-size: 12px;
-    font-weight: 500;
-    opacity: 0.8;
-    margin-bottom: 2px;
-    letter-spacing: 0.3px;
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px 14px;
+    justify-items: center;
   }
-  .notif-text p {
-    font-size: 14px;
-    font-weight: 400;
+  .app-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.1s ease;
   }
+  .app-item:active { transform: scale(0.9); }
+  .app-icon {
+    width: 58px; height: 58px;
+    border-radius: 14px; display: flex; justify-content: center; align-items: center;
+    font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); color: #fff;
+  }
+  .app-name {
+    color: #fff; font-size: 11px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  }
+
+  .dock {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+    border-radius: 30px; padding: 12px 14px; display: grid;
+    grid-template-columns: repeat(4, 1fr); gap: 14px; justify-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .bg-wa { background: #25D366; }
+  .bg-gallery { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%); }
+  .bg-camera { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
+  .bg-notes { background: #fbc531; }
+  .bg-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+  .bg-spotify { background: #1DB954; }
+  .bg-settings { background: #7f8c8d; }
+  .bg-safari { background: #00a8ff; }
+  .bg-phone { background: #4cd137; }
 </style>
 </head>
 <body>
 
-<div class="phone">
-  <!-- Status Bar Atas -->
-  <div class="status-bar">
-    <div class="time-status" id="statusBarTime">21:40</div>
-    <div class="right-icons">
-      <span>📶</span>
-      <span>📡</span>
-      <span class="battery"><span class="battery-fill"></span></span>
-    </div>
-  </div>
+<div class="phone-frame">
+  <div class="phone">
+    
+    <div class="dynamic-island"></div>
 
-  <!-- Jam Besar Lockscreen -->
-  <div class="lock-screen-content">
-    <div class="lock-time" id="lockTime">08:28</div>
-    <div class="lock-date">Senin, 11 November</div>
-  </div>
-
-  <!-- Notifikasi WhatsApp -->
-  <div class="lock-notification">
-    <img src="WhatsApp Image 2024-10-08 at 15.26.38_2652ad27.jpg" alt="Kimmy">
-    <div class="notif-text">
-      <h4>WHATSAPP • Now</h4>
-      <p>Kimmy: kamu dimana...</p>
+    <!-- Status Bar dengan Sinyal Warna Hijau -->
+    <div class="status-bar">
+      <div class="time-status" id="statusBarTime">00:00</div>
+      <div class="right-icons">
+        <span class="signal-green">📶</span>
+        <span class="signal-green">5G</span>
+        <span class="battery"><span class="battery-fill"></span></span>
+      </div>
     </div>
+
+    <!-- Lockscreen -->
+    <div class="lockscreen" id="lockscreen" onclick="bukaHP()">
+      <div class="lock-screen-content">
+        <div class="lock-time" id="lockTime">09:00</div>
+        <div class="lock-date" id="lockDate">Kamis,11 November 2026</div>
+      </div>
+
+      <div class="lock-notification">
+        <img src=""WhatsApp Image 2024-10-08 at 15.26.38_2652ad27.jpg" alt="Kimmy">
+        <div class="notif-text">
+          <h4>WHATSAPP • 1m ago</h4>
+          <p>Kimmy: kamu dimana...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Homescreen -->
+    <div class="homescreen">
+      <div class="app-grid">
+        <a href="wa.html" class="app-item">
+          <div class="app-icon bg-wa">💬</div>
+          <span class="app-name">WhatsApp</span>
+        </a>
+        <a href="galeri.html" class="app-item">
+          <div class="app-icon bg-gallery">🖼️</div>
+          <span class="app-name">Galeri</span>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="app-item">
+          <div class="app-icon bg-instagram">📸</div>
+          <span class="app-name">Instagram</span>
+        </a>
+        <a href="https://spotify.com" target="_blank" class="app-item">
+          <div class="app-icon bg-spotify">🎵</div>
+          <span class="app-name">Spotify</span>
+        </a>
+        <a href="catatan.html" class="app-item">
+          <div class="app-icon bg-notes">📝</div>
+          <span class="app-name">Catatan</span>
+        </a>
+        <a href="pengaturan.html" class="app-item">
+          <div class="app-icon bg-settings">⚙️</div>
+          <span class="app-name">Pengaturan</span>
+        </a>
+        <a href="kamera.html" class="app-item">
+          <div class="app-icon bg-camera">📷</div>
+          <span class="app-name">Kamera</span>
+        </a>
+        <a href="https://google.com" target="_blank" class="app-item">
+          <div class="app-icon bg-safari">🌐</div>
+          <span class="app-name">Safari</span>
+        </a>
+      </div>
+
+      <div class="dock">
+        <a href="telepon.html" class="app-item">
+          <div class="app-icon bg-phone">📞</div>
+        </a>
+        <a href="https://google.com" target="_blank" class="app-item">
+          <div class="app-icon bg-safari">🌐</div>
+        </a>
+        <a href="wa.html" class="app-item">
+          <div class="app-icon bg-wa">💬</div>
+        </a>
+        <a href="https://spotify.com" target="_blank" class="app-item">
+          <div class="app-icon bg-spotify">🎵</div>
+        </a>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
-  // Update Jam Real-time
-  function updateWaktu(){
+  function bukaHP() {
+    document.getElementById('lockscreen').classList.add('unlock');
+  }
+
+  function updateWaktuDanTanggal(){
     let now = new Date();
-    let h = String(now.getHours()).padStart(2,'0');
-    let m = String(now.getMinutes()).padStart(2,'0');
+    let h = String(now.getHours()).padStart(2, '0');
+    let m = String(now.getMinutes()).padStart(2, '0');
     let jamFormat = h + ':' + m;
     
+    let opsiTanggal = { weekday: 'long', day: 'numeric', month: 'long' };
+    let tanggalFormat = now.toLocaleDateString('id-ID', opsiTanggal);
+    
     let elBar = document.getElementById('statusBarTime');
-    let elLock = document.getElementById('lockTime');
+    let elLockTime = document.getElementById('lockTime');
+    let elLockDate = document.getElementById('lockDate');
+    
     if(elBar) elBar.textContent = jamFormat;
-    if(elLock) elLock.textContent = jamFormat;
+    if(elLockTime) elLockTime.textContent = jamFormat;
+    if(elLockDate) elLockDate.textContent = tanggalFormat;
   }
-  updateWaktu();
-  setInterval(updateWaktu, 1000);
+
+  updateWaktuDanTanggal();
+  setInterval(updateWaktuDanTanggal, 1000);
 </script>
 
 </body>
 </html>
+
